@@ -45,7 +45,22 @@ span {
 }
 
 .imagen_logo {
-    width: 380px;
+    max-width: 80%;
+    height: auto;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 600px) {
+    .imagen_logo {
+        max-width: 90%;
+    }
+}
+
+/* Media query para pantallas grandes */
+@media (min-width: 1200px) {
+    .imagen_logo {
+        max-width: 60%;
+    }
 }
 
 .imagen_logo1 {
