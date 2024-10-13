@@ -3,10 +3,7 @@
         <div class="titulo">
             <h1><span>!Ojo¡ </span>con Eso</h1>
         </div>
-        <!-- <div class="buttons">
-            <button class="buton_1" routerLink="/login" >Iniciar Sesión</button>
-            <button class="buton_2"  routerLink="/registro" >Registrarse</button>
-        </div> -->
+
     </div>
     <div class="body">
         <div class="logo">
@@ -24,5 +21,11 @@
             <a href="">¿Como hacer una denuncia? <i class='bx bx-help-circle'></i></a>
 
         </div>
+    </div>
+</div>
+<!-- Modal con imagen -->
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <img src="../../../assets/img/ojoconesologo.png" alt="" class="modal-image">
     </div>
 </div>
