@@ -56,7 +56,7 @@ span {
 
 .container_content {
     width: 90%;
-    height: 360px;
+    height: 380px;
     background: #00022f;
     position: absolute;
     bottom: 0;
@@ -101,6 +101,7 @@ button {
     justify-content: center;
     align-items: center;
     gap: 120px;
+    margin-bottom: 20px;
 }
 a{
     font-family: system-ui;
