@@ -103,10 +103,12 @@ button {
     gap: 130px;
 }
 a{
+    font-family: system-ui;
     text-decoration: none;
     color: #fff;
     display: flex;
     gap: 5px;
+    font-weight: 400;
     align-items: center;
     justify-content: center;
 }
