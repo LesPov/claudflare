@@ -1,21 +1,118 @@
-.sidenav {
+.container_home {
     display: flex;
-    padding: 10px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.header {
+    background: #00022f;
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: -1px 8px 20px 9px #ccc;
 }
 
 h1 {
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     margin: 0;
+    font-size: 45px;
+
 }
 
 span {
-    color: rgb(255, 136, 0);
+    color: #f3cc3f;
+    font-weight: 900;
+}
+
+.body {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.imagen_logo {
+    width: 380px;
+}
+
+.imagen_logo1 {
+    position: absolute;
+    width: 70px;
+    margin-top: 45px;
+}
+
+.container_content {
+    width: 90%;
+    height: 360px;
+    background: #00022f;
+    position: absolute;
+    bottom: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 25px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 90%;
 
 }
 
+
+.buttonVg {
+    background: #f3cc3f;
+    color: #00022f;
+}
+
+.buttonDo {
+    margin-top: 20px;
+    background: #fff;
+    color: #00022f;
+}
+
+.buttonDa {
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.logaout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 130px;
+}
+a{
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 
 .logo {
     display: flex;
     align-items: center;
@@ -61,4 +158,4 @@ button {
     font-weight: 800;
     cursor: pointer;
 
-}
+}  */
