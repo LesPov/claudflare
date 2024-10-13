@@ -35,11 +35,11 @@ export function redirectUser(user: AdminInterface,response: any, router: Router)
   }
   // Verificar si el rol es admin y no tiene una contraseña aleatoria
   else if (response.rol === 'admin') {
-    router.navigate(['/admin']);
+    router.navigate(['/dashboardAdmin']);
   }
   // Redirigir a la home si es un usuario normal con una contraseña no aleatoria
   else {
-    router.navigate(['/home']);
+    router.navigate(['/dashboardUser']);
   }
 }
 
