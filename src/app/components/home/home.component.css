@@ -34,7 +34,7 @@ span {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    
 }
 
 .logo {
@@ -59,6 +59,7 @@ span {
     width: 90%;
     height: 360px;
     background: #00022f;
+    position: absolute;
     bottom: 0;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -102,8 +103,7 @@ button {
     align-items: center;
     gap: 130px;
 }
-
-a {
+a{
     text-decoration: none;
     color: #fff;
     display: flex;
