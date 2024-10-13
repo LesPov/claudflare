@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     // Mostrar el modal al cargar la página y configurarlo para que se cierre automáticamente
     setTimeout(() => {
       this.closeModal();
-    }, 5000); // El modal se cerrará automáticamente después de 3 segundos
+    }, 3000); // El modal se cerrará automáticamente después de 3 segundos
   }
 
   closeModal() {
