@@ -100,8 +100,9 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 120px;
+    gap: 100px;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 a{
     font-family: system-ui;
