@@ -6,9 +6,9 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink], // Importa módulos necesarios para los formularios y enlaces
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   showModal: boolean = true;
@@ -16,11 +16,13 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Modal se muestra por defecto cuando el componente se inicializa
+    // Mostrar el modal al cargar la página y configurarlo para que se cierre automáticamente
+    setTimeout(() => {
+      this.closeModal();
+    }, 5000); // El modal se cerrará automáticamente después de 3 segundos
   }
 
   closeModal() {
     this.showModal = false;
   }
-
 }
