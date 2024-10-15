@@ -1,20 +1,41 @@
-
 <div class="body">
-
     <img class="imagen_logo1" src="../../../assets/img/ojoconesologo.png" alt="">
-
     <img class="imagen_logo" src="../../../assets/img/newondo.png" alt="">
 
     <div class="container_content">
-
-        <button type="button" class="buttonDo">Denuncia Oficial</button>
-        <button type="button" class="buttonDa">Denuncia Anonima</button>
-        <button type="button" class="buttonVg">Violencia de genero <i class='bx bx-male-female bx-flashing'></i></button>
+        <button type="button" class="buttonDo"
+            (click)="openModal('Denuncia Oficial', 'tel:+123', '/denunciaOficial')">Denuncia Oficial</button>
+        <button type="button" class="buttonDa"
+            (click)="openModal('Denuncia Anónima', 'tel:+123', '/denunciaAnonima')">Denuncia Anónima</button>
+        <button type="button" class="buttonVg"
+            (click)="openModal('Violencia de Género', 'tel:+123', '/violenciaGenero')">
+            Violencia de género <i class='bx bx-male-female bx-flashing'></i>
+        </button>
         <div class="logaout">
-            <a class="login" routerLink="/loginUser">Iniciar sesion <i class='bx bx-right-arrow-alt'></i></a>
-            <a class="register" routerLink="/registerUser">Registrate <i class='bx bx-right-arrow-alt'></i></a>
+            <a class="login" routerLink="/loginUser">Iniciar sesión <i class='bx bx-right-arrow-alt'></i></a>
+            <a class="register" routerLink="/registerUser">Regístrate <i class='bx bx-right-arrow-alt'></i></a>
         </div>
-        <a href="">¿Como hacer una denuncia? <i class='bx bx-help-circle'></i></a>
-
+        <a href="">¿Cómo hacer una denuncia? <i class='bx bx-help-circle'></i></a>
     </div>
+
+    <div *ngIf="currentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <div class="content">
+                <!-- Aquí va el botón animado -->
+                <div class="warning-icon">
+                    <span>!</span>
+                </div>
+                <p>Esta aplicación no es para reportar situaciones de emergencia. Si se encuentra en peligro inminente
+                    <br>
+                    <span>llame al 123.</span>
+                </p>
+                <div class="buttons_modal">
+                     <button class="call" (click)="makeCall()">Llamar 123</button>
+                    <button class="go" (click)="navigateToRoute()">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

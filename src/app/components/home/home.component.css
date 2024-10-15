@@ -1,4 +1,3 @@
-
 .body {
     display: flex;
     justify-content: center;
@@ -58,7 +57,7 @@ button {
     border-radius: 10px;
     padding: 10px;
     width: 90%;
-
+    cursor: pointer;
 }
 
 
@@ -98,206 +97,118 @@ a {
     justify-content: center;
 }
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    /* Aumentar opacidad */
+/* Estilos para el fondo oscuro y modal */
+.modal {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
-
 
 .modal-content {
     background-color: white;
     padding: 20px;
-    height: 100%;
+    width: 82%;
+    height: 90%;
     display: flex;
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+    border-radius: 10px;
     flex-direction: column;
+    align-items: flex-end;
 }
 
-.modal-content img {
-    width: 90%;
-}
-
-/* Animación para agrandar el texto completo */
-@keyframes scaleText {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.3);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Pestañeo para la primera "O" */
-@keyframes wink {
-
-    0%,
-    100% {
-        transform: scaleY(1);
-    }
-
-    50% {
-        transform: scaleY(0);
-    }
-
-    /* Comprime la O verticalmente */
-}
-
-/* Estilos para el texto */
-#ojo-text {
-    color: #f3cc3f;
-    font-weight: 900;
-    font-size: 5rem;
-    display: inline-block;
-    font-family: 'Chau Philomene One', sans-serif;
-    text-shadow:
-        -4px -4px 5px #000,
-        4px -4px 5px #000,
-        -4px 4px 5px #000,
-        4px 4px 5px #000;
-    /* Añade un borde negro alrededor del texto */
-    letter-spacing: 0px;
-    /* Añade espacio entre letras */
-}
-
-
-.letra {
-    display: inline-block;
-    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-    /* Transición suave */
-}
-
-/* Aplicar animación al texto completo */
-#ojo-text {
-    animation: scaleText 0.9s ease-in-out;
-}
-
-/* Animación del pestañeo en la primera "O" */
-.letra:nth-child(1) {
-    animation: wink 0.5s ease-in-out 0.9s;
-    /* El pestañeo empieza después del agrandamiento */
-}
-
-@keyframes drop {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(80px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
-}
-
-.lava-lamp {
-    position: relative;
-    margin-top: 50px;
-    width: 50px;
-    height: 100px;
-    background: #00022f;
-    border-radius: 25px;
-    overflow: hidden;
-}
-
-.bubble {
-    position: absolute;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    background: #0241fe;
-    border-radius: 50%;
-    left: 15px;
-    animation: drop 5s ease-in-out infinite;
-}
-
-.bubble1 {
-    position: absolute;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    background: #f2fe02;
-
-    border-radius: 50%;
-    left: 1px;
-    animation: drop 3s ease-in-out infinite;
-}
-
-.bubble2 {
-    position: absolute;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    background: #fe0202;
-    border-radius: 50%;
-    left: 30px;
-    animation: drop 4s ease-in-out infinite;
-}
-
-
-
-/* 
-.logo {
+.content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
-}
-
-.imagen {
-    width: 80px;
-    height: 80px;
-
-}
-
-button {
-    font-family: "Ubuntu", sans-serif;
-
-}
-
-.buttons {
-    display: flex;
     align-items: center;
-    gap: 15px;
-    height: 50px;
 }
 
-.buton_1 {
-    background: none;
-    border: none;
-    color: rgb(255, 136, 0);
-    font-size: 15px;
+.content p {
+    text-align: center;
+    color: #010331;
+    margin-bottom: 25px;
+}
+
+.content span {
+    font-size: 18px;
     font-weight: 800;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Estilo y animación del ícono de advertencia */
+.warning-icon {
+    width: 100px;
+    height: 100px;
+    background-color: #e72626;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #fff;
+    box-shadow: 0 0 20px 2px rgb(255 0 0);
+    animation: pulse 1.5s infinite ease-in-out;
+    margin: 76px 0px;
 
 }
 
-.buton_2 {
-    background: rgb(255, 136, 0);
-    padding: 10px;
-    border-radius: 15px;
-    border: none;
-    color: rgb(255, 255, 255);
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
+.warning-icon span {
+    font-weight: bold;
+    font-size: 60px;
 
-}  */
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px  rgba(255, 0, 0.5);
+    }
+
+    50% {
+        transform: scale(1.5);
+        box-shadow: 0 0 30px 8px rgba(255, 0, 0.7);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 0, 0.5);
+    }
+}
+
+.buttons_modal {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+.call {
+    background: red;
+    color: white;
+}
+
+.go {
+    background: #010331;
+    color: #f3cc3f;
+}

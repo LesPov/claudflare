@@ -11,6 +11,30 @@ import { WelcomenComponent } from '../user/welcomen/welcomen.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent  {
- 
+export class HomeComponent {
+  currentModal: string | null = null;
+  modalTitle: string = '';
+  callUrl: string = '';
+  navigateRoute: string = '';
+
+  constructor(private router: Router) {}
+
+  openModal(title: string, callUrl: string, route: string): void {
+    this.currentModal = title;
+    this.modalTitle = title;
+    this.callUrl = callUrl;
+    this.navigateRoute = route;
+  }
+
+  closeModal(): void {
+    this.currentModal = null;
+  }
+
+  makeCall(): void {
+    window.location.href = this.callUrl;
+  }
+
+  navigateToRoute(): void {
+    this.router.navigate([this.navigateRoute]);
+  }
 }
