@@ -181,11 +181,11 @@ a {
     display: inline-block;
     font-family: 'Chau Philomene One', sans-serif;
     text-shadow: 
-        -4px -4px 0px #000,  
-        4px -4px 0px #000, 
-        -4px 4px 0px #000,  
-        4px 4px 0px #000; /* Añade un borde negro alrededor del texto */
-    letter-spacing: 5px; /* Añade espacio entre letras */
+        -6px -6px 0px #000,  
+        6px -6px 0px #000, 
+        -6px 6px 0px #000,  
+        6px 6px 0px #000; /* Añade un borde negro alrededor del texto */
+    letter-spacing: 8px; /* Añade espacio entre letras */
 }
 
 
