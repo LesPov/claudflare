@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="body">
-        
+
         <div class="container_content">
             <button type="button" class="buttonDo">Denuncia Oficial</button>
             <button type="button" class="buttonDa">Denuncia Anonima</button>
@@ -25,12 +25,14 @@
 <!-- Modal con imagen -->
 <div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-        <img src="../../../assets/img/ojoconesologo.png" alt="" class="modal-image">
+        <span id="ojo-text">
+            !<span class="letra">O</span>J<span class="letra">O</span>¡
+        </span>
         <div class="lava-lamp">
             <div class="bubble"></div>
             <div class="bubble1"></div>
             <div class="bubble2"></div>
         </div>
-
     </div>
 </div>
+

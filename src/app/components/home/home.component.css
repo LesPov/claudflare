@@ -23,10 +23,7 @@ h1 {
 
 }
 
-span {
-    color: #f3cc3f;
-    font-weight: 900;
-}
+
 
 .body {
     display: flex;
@@ -139,21 +136,74 @@ a {
     padding: 20px;
     height: 100%;
     display: flex;
-    max-width: 100%;
+    width: 100%;
     text-align: center;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.modal-image {
-    max-width: 100%;
-    height: auto;
+/* Animación para agrandar el texto completo */
+@keyframes scaleText {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
+/* Pestañeo para la primera "O" */
+@keyframes wink {
 
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
 
-/* From Uiverse.io by Hashir-Ahmed123 */
+    50% {
+        transform: scaleY(0.1);
+    }
+
+    /* Comprime la O verticalmente */
+}
+
+#ojo-text {
+    color: #f3cc3f;
+    font-weight: 900;
+    font-size: 4rem;
+    display: inline-block;
+    font-family: 'Chau Philomene One', sans-serif;
+    text-shadow:
+        -2px -2px 0px #000,
+        2px -2px 0px #000,
+        -2px 2px 0px #000,
+        2px 2px 0px #000;
+    /* Añade un borde negro alrededor del texto */
+}
+
+.letra {
+    display: inline-block;
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    /* Transición suave */
+}
+
+/* Aplicar animación al texto completo */
+#ojo-text {
+    animation: scaleText 0.9s ease-in-out;
+}
+
+/* Animación del pestañeo en la primera "O" */
+.letra:nth-child(1) {
+    animation: wink 0.5s ease-in-out 0.9s;
+    /* El pestañeo empieza después del agrandamiento */
+}
+
 @keyframes drop {
     0% {
         transform: translateY(0px);
@@ -170,6 +220,7 @@ a {
 
 .lava-lamp {
     position: relative;
+    margin-top: 50px;
     width: 50px;
     height: 100px;
     background: #00022f;
