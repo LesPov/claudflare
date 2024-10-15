@@ -167,7 +167,7 @@ a {
     }
 
     50% {
-        transform: scaleY(0.1);
+        transform: scaleY(0);
     }
 
     /* Comprime la O verticalmente */
