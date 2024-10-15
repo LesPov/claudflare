@@ -185,7 +185,7 @@ a {
 
     50% {
         transform: scale(1.5);
-        box-shadow: 0 0 30px 8px rgba(255, 0, 0.7);
+        box-shadow: 0 0 30px 5px rgba(255, 0, 0.7);
     }
 
     100% {
