@@ -173,19 +173,21 @@ a {
     /* Comprime la O verticalmente */
 }
 
+/* Estilos para el texto */
 #ojo-text {
     color: #f3cc3f;
     font-weight: 900;
-    font-size: 4rem;
+    font-size: 5rem;
     display: inline-block;
     font-family: 'Chau Philomene One', sans-serif;
-    text-shadow:
-        -2px -2px 0px #000,
-        2px -2px 0px #000,
-        -2px 2px 0px #000,
-        2px 2px 0px #000;
-    /* Añade un borde negro alrededor del texto */
+    text-shadow: 
+        -4px -4px 0px #000,  
+        4px -4px 0px #000, 
+        -4px 4px 0px #000,  
+        4px 4px 0px #000; /* Añade un borde negro alrededor del texto */
+    letter-spacing: 5px; /* Añade espacio entre letras */
 }
+
 
 .letra {
     display: inline-block;
