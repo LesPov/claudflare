@@ -77,6 +77,7 @@ a:focus {
 .buttonVg {
     background: #f3cc3f;
     color: #00022f;
+    
 }
 
 .buttonDo {
@@ -219,9 +220,11 @@ a {
 .call {
     background: red;
     color: white;
+    width: 100%;
 }
 
 .go {
     background: #010331;
     color: #f3cc3f;
+    width: 100%;
 }
