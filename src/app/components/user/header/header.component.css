@@ -4,7 +4,7 @@ header {
     display: flex;
     flex-direction: column;
     color: #fff;
-    border-bottom: 1.5px solid red;
+    border-bottom: 2px solid red;
 }
 
 .bx {

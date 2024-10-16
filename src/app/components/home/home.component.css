@@ -24,7 +24,7 @@
     max-width: 90%;
     z-index: -1;
     position: absolute;
-    bottom: 355px;
+    bottom: 380px;
 }
 
 
@@ -40,9 +40,8 @@
     height: 380px;
     background: #1d1c49;
     position: absolute;
-    bottom: 0;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    bottom: 20px;
+    border-radius: 15px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
