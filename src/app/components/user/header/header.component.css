@@ -27,3 +27,12 @@ h1 {
 }
 
 
+
+.bx {
+  -webkit-tap-highlight-color: transparent;  /* Elimina el color de resaltado en móviles */
+}
+
+.bx:focus {
+  outline: none;  /* Elimina el borde del foco */
+  box-shadow: none;  /* Elimina cualquier sombra al hacer click */
+}
