@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';  // Importa Location
 
 @Component({
   selector: 'app-header',
@@ -10,4 +11,10 @@ import { Component, Input } from '@angular/core';
 export class HeaderComponent {
   @Input() title: string = '';  // Recibe el título como Input
 
+  constructor(private location: Location) {}  // Inyecta Location
+
+  // Método para retroceder
+  goBack(): void {
+    this.location.back();
+  }
 }
