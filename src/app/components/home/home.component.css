@@ -58,6 +58,20 @@ button {
     padding: 10px;
     width: 90%;
     cursor: pointer;
+    outline: none;
+    /* Elimina el recuadro azul */
+
+}
+
+button, 
+a {
+  -webkit-tap-highlight-color: transparent;  /* Elimina el color de resaltado en móviles */
+}
+
+button:focus, 
+a:focus {
+  outline: none;  /* Elimina el borde del foco */
+  box-shadow: none;  /* Elimina cualquier sombra al hacer click */
 }
 
 
@@ -180,7 +194,7 @@ a {
 @keyframes pulse {
     0% {
         transform: scale(1);
-        box-shadow: 0 0 15px  rgba(255, 0, 0.5);
+        box-shadow: 0 0 15px rgba(255, 0, 0.5);
     }
 
     50% {
