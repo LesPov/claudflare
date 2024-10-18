@@ -1,0 +1,73 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.info{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    gap: 5px;
+    background: #ffeba5;
+    margin-bottom: 5px;
+    box-shadow: 0px 5px 10px 2px #ccc;
+}
+
+.info i {
+    font-size: 30px;
+}
+
+.content{
+    width: 90%;
+}
+.content p {
+    margin: 15px 0px;
+}
+.denuncia-item {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .denuncia-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .denuncia-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+  
+  .denuncia-header span {
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  
+  .descripcion {
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .error {
+    color: red;
+  }
+  

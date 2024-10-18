@@ -1,0 +1,31 @@
+<app-header [title]="'Denuncias Anónimas'"></app-header>
+<div class="container">
+  <div class="info">
+    <i class='bx bx-error-circle'></i>
+    <p>Marca la opcion deseada</p>
+  </div>
+  <div class="content" *ngIf="tiposDenunciasAnonimas.length > 0; else noData">
+    <p>¿Que quieres denunciar?</p>
+    <ul>
+      <li *ngFor="let tipo of tiposDenunciasAnonimas; let i = index" class="denuncia-item">
+        <!-- Nombre de la denuncia con un ícono al lado -->
+        <div class="denuncia-header" (click)="toggleDescripcion(i)">
+          <span>{{ tipo.nombre }}<i class='bx bx-error-circle'></i></span>
+        </div>
+
+        <!-- Descripción que se muestra/oculta según el índice -->
+        <div *ngIf="descripcionVisible[i]" class="descripcion">
+          {{ tipo.descripcion }}
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #noData>
+  <p>No hay denuncias anónimas o de ambas categorías disponibles.</p>
+</ng-template>
+
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</div>
