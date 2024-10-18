@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endpoint: 'http://localhost:1001/'
+  endpoint: 'https://g7hr118t-1001.use2.devtunnels.ms/'
 };
 
 /*
