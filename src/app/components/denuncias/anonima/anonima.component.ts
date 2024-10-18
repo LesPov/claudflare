@@ -9,13 +9,13 @@ import { HeaderComponent } from '../../user/header/header.component';
 @Component({
   selector: 'app-anonima',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink,HeaderComponent], // Importa módulos necesarios para los formularios y enlaces
+  imports: [FormsModule, CommonModule, RouterLink, HeaderComponent],
   templateUrl: './anonima.component.html',
   styleUrl: './anonima.component.css'
 })
 export class AnonimaComponent implements OnInit {
   tiposDenunciasAnonimas: TipoDenunciaInterface[] = [];
-  descripcionVisible: boolean[] = [];  // Estado de visibilidad de la descripción
+  descripcionVisible: boolean[] = [];
   errorMessage: string = '';
 
   constructor(
@@ -31,7 +31,6 @@ export class AnonimaComponent implements OnInit {
     this.denunciasService.getTiposDenunciaAnonimas().subscribe({
       next: (tipos) => {
         this.tiposDenunciasAnonimas = tipos;
-        // Inicializamos el arreglo de visibilidad de descripciones en 'false'
         this.descripcionVisible = new Array(tipos.length).fill(false);
       },
       error: (err) => {
@@ -41,8 +40,14 @@ export class AnonimaComponent implements OnInit {
     });
   }
 
-  // Función para alternar la visibilidad de la descripción
   toggleDescripcion(index: number): void {
     this.descripcionVisible[index] = !this.descripcionVisible[index];
+  }
+
+  // Método para obtener la URL de la imagen
+  getImageUrl(flagImage: string): string {
+    // Asume que las imágenes se almacenan en una carpeta 'assets/images'
+    // Ajusta esta ruta según la estructura de tu proyecto
+    return `assets/img/demandas/tipo_demandas/${flagImage}`;
   }
 }
