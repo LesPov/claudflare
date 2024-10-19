@@ -1,38 +1,63 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';  // Importa Location
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BotInfoService } from '../../home/bot/botInfoService';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, CommonModule ],  
+  imports: [FormsModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() title: string = '';
-  @Input() showSpeakButton: boolean = false;  // Añadido para controlar el botón de hablar
-  infoIndex: number = 0;
-  infoList: string[] = [
-    "La primera información es sobre las denuncias anónimas.",
-    "La segunda información es sobre cómo presentar tu denuncia.",
-    "La tercera información es sobre los derechos que tienes al denunciar."
-  ];
+  @Input() showSpeakButton: boolean = false;
+  @Input() componentName: string = '';
 
-  constructor(private location: Location) {}
+  isSpeaking: boolean = false;
+  private subscription: Subscription | undefined;
+
+  constructor(
+    private location: Location,
+    private botInfoService: BotInfoService
+  ) {}
+
+  ngOnInit() {
+    this.botInfoService.setCurrentComponent(this.componentName);
+    this.subscription = this.botInfoService.getCurrentComponent().subscribe(
+      component => {
+        console.log('Componente actual:', component);
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   goBack(): void {
     this.location.back();
   }
 
   speak(): void {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(this.infoList[this.infoIndex]);
-      utterance.lang = 'es-ES';
-      window.speechSynthesis.speak(utterance);
-      this.infoIndex = (this.infoIndex + 1) % this.infoList.length;
+    if (this.isSpeaking) {
+      this.botInfoService.cancelSpeak();
+      this.isSpeaking = false;
     } else {
-      console.error('La síntesis de voz no está disponible en este navegador.');
+      const nextInfo = this.botInfoService.getNextInfo();
+      this.isSpeaking = true;
+      this.botInfoService.speak(nextInfo)
+        .then(() => {
+          this.isSpeaking = false;
+        })
+        .catch((error) => {
+          console.error('Error al hablar:', error);
+          this.isSpeaking = false;
+        });
     }
   }
 }
