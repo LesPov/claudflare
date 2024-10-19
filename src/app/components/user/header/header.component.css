@@ -1,38 +1,64 @@
 header {
-    height: 150px;
-    background: #1d1c49;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    border-bottom: 2px solid red;
+  height: 150px;
+  background: #1d1c49;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  border-bottom: 2px solid red;
 }
 
 .bx {
-    display: flex;
-    font-size: 30px;
-    margin: 15px;
-    width: 50px;
-    padding: 10px;
-    background: #43427b;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  display: flex;
+  font-size: 30px;
+  margin: 15px;
+  width: 50px;
+  padding: 10px;
+  background: #43427b;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 h1 {
-    font-weight: 900;
-    margin: 0px 19px;
-    font-size: 40px;
+  font-weight: 900;
+  margin: 0px 19px;
+  font-size: 40px;
 }
 
 
+.bot-button {
+  margin: 15px;
+  height: 50px;
+  width: 50px;
+  background-color: #43427b;
+  color: white;
+  border: none;
+  position: absolute;
+  cursor: pointer;
+  font-size: 16px;
+  right: 0;
+  border-radius: 50%;
+}
+
+.bot-button img {
+  width: 100%;
+  border-radius: 50%;
+  height: 100%;
+}
+
+.bot-button:hover {
+  background-color: #5653a5;
+}
 
 .bx {
-  -webkit-tap-highlight-color: transparent;  /* Elimina el color de resaltado en móviles */
+  -webkit-tap-highlight-color: transparent;
+  /* Elimina el color de resaltado en móviles */
 }
 
 .bx:focus {
-  outline: none;  /* Elimina el borde del foco */
-  box-shadow: none;  /* Elimina cualquier sombra al hacer click */
+  outline: none;
+  /* Elimina el borde del foco */
+  box-shadow: none;
+  /* Elimina cualquier sombra al hacer click */
 }

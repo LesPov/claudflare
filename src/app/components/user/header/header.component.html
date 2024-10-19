@@ -1,5 +1,7 @@
 <header>
-    <i class='bx bx-chevron-left' (click)="goBack()"></i>  <!-- Acción para ir atrás -->
+    <i class='bx bx-chevron-left' (click)="goBack()"></i>
     <h1>{{ title }}</h1>
-    
-</header>
+    <!-- Botón de habla solo si showSpeakButton es true -->
+    <button *ngIf="showSpeakButton" class="bot-button" (click)="speak()"><img src="../../../../assets/img/iabot.jpg" alt=""></button>
+  </header>
+  
