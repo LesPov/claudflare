@@ -42,22 +42,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
   goBack(): void {
     this.location.back();
   }
-
   speak(): void {
     if (this.isSpeaking) {
       this.botInfoService.cancelSpeak();
       this.isSpeaking = false;
+      this.toggleSpeakingAnimation(false); // Desactivar la animación
     } else {
       const nextInfo = this.botInfoService.getNextInfo();
       this.isSpeaking = true;
+      this.toggleSpeakingAnimation(true); // Activar la animación
       this.botInfoService.speak(nextInfo)
         .then(() => {
           this.isSpeaking = false;
+          this.toggleSpeakingAnimation(false); // Desactivar la animación al terminar
         })
         .catch((error) => {
           console.error('Error al hablar:', error);
           this.isSpeaking = false;
+          this.toggleSpeakingAnimation(false); // Desactivar la animación en caso de error
         });
     }
   }
+  
+  toggleSpeakingAnimation(isSpeaking: boolean): void {
+    const element = document.querySelector('.cuadro');
+    if (element) {
+      if (isSpeaking) {
+        element.classList.add('speaking');
+      } else {
+        element.classList.remove('speaking');
+      }
+    }
+  }
+  
 }
