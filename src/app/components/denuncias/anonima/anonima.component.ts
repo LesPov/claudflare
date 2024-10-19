@@ -20,8 +20,7 @@ export class AnonimaComponent implements OnInit {
   tiposDenunciasAnonimas: TipoDenunciaInterface[] = [];
   descripcionVisible: number | null = null;
   selectedDenunciaIndex: number | null = null;
-  backgroundColor: string = '#ffffff'; 
-  isSpeaking: boolean = false;
+  backgroundColor: string = '#ffffff';
 
   private infoListAnonima: string[] = [
     "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
@@ -35,12 +34,13 @@ export class AnonimaComponent implements OnInit {
     private denunciasService: DenunciasService,
     private router: Router,
     private toastr: ToastrService,
-    private botInfoService: BotInfoService 
+    private botInfoService: BotInfoService
   ) {}
 
   ngOnInit(): void {
     this.obtenerTiposDenunciaAnonimas();
-    this.botInfoService.setInfoList(this.infoListAnonima); // Configura la lista de frases para este componente
+    this.botInfoService.setInfoList(this.infoListAnonima);
+    this.botInfoService.setCurrentComponent('anonima');
   }
 
   obtenerTiposDenunciaAnonimas(): void {
@@ -72,12 +72,8 @@ export class AnonimaComponent implements OnInit {
 
       this.botInfoService.speak(name)
         .then(() => this.botInfoService.speak(description))
-        .then(() => {
-          this.isSpeaking = false;
-        })
         .catch((error) => {
           console.error('Error al hablar:', error);
-          this.isSpeaking = false;
         });
     }
   }
