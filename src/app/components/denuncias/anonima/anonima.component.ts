@@ -49,7 +49,7 @@ export class AnonimaComponent implements OnInit {
   }
 
   selectDenuncia(index: number): void {
-    this.selectedDenunciaIndex = index;
+    this.selectedDenunciaIndex = this.selectedDenunciaIndex === index ? null : index;
   }
 
   handleContinue(): void {

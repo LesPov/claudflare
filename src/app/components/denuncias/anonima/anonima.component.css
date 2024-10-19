@@ -49,11 +49,12 @@ img {
     background-color: #f1f1f1;
 }
 
+
 .denuncia-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
 }
 
 .denuncia-header span {
@@ -66,12 +67,24 @@ img {
     gap: 10px;
 }
 
+
 .denuncia-item.selected {
   background-color: #ffeba5; /* Color de fondo para el elemento seleccionado */
+  color: #333; /* Color del texto cuando está seleccionado */
 }
 
 .denuncia-item:not(.selected):hover {
   background-color: #f1f1f1;
+}
+
+.denuncia-header span {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .descripcion {
@@ -81,7 +94,6 @@ img {
   font-size: 14px;
   transition: max-height 0.3s ease, opacity 0.3s ease;
 }
-
 .error {
     color: red;
 }

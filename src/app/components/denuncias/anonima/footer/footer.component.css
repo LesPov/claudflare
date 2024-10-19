@@ -64,6 +64,7 @@
 .continue-btn {
   border: none;
   background: #ccc;
+  color: #1d1c49;
   display: flex;
   border-radius: 10px;
   justify-content: center;
@@ -76,7 +77,7 @@
 }
 
 .continue-btn.active {
-  background: #1890ff;
+  background: #1d1c49;
   color: white;
   cursor: pointer;
 }
@@ -85,8 +86,4 @@
   font-size: 30px;
   color: #f89406;
   transition: all 0.3s ease;
-}
-
-.continue-btn.active i {
-  color: white;
 }
