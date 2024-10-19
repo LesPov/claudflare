@@ -55,7 +55,7 @@ export class BotInfoService {
         
         responsiveVoice.speak(text, "Spanish Latin American Female", {
           pitch: 1,
-          rate: 1,
+          rate: 1.15,
           onend: () => {
             this.isSpeaking = false;
             resolve();
