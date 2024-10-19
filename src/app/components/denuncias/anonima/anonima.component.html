@@ -1,5 +1,5 @@
 <app-header [title]="'Denuncias Anónimas'"></app-header>
-<div class="container">
+<div class="container" [style.background-color]="backgroundColor">
   <div class="info">
     <i class='bx bx-error-circle'></i>
     <p>Marca la opción deseada</p>
@@ -7,13 +7,17 @@
   <div class="content" *ngIf="tiposDenunciasAnonimas.length > 0; else noData">
     <p>¿Qué quieres denunciar?</p>
     <ul>
-      <li *ngFor="let tipo of tiposDenunciasAnonimas; let i = index" class="denuncia-item">
+      <li *ngFor="let tipo of tiposDenunciasAnonimas; let i = index" 
+          class="denuncia-item" 
+          [class.selected]="selectedDenunciaIndex === i">
         <div class="denuncia-header" (click)="toggleDescripcion(i)">
-          <span> <img [src]="getImageUrl(tipo.flagImage)" alt="Icono de denuncia" class="denuncia-icon">
-            {{ tipo.nombre }}</span>
-          <input type="checkbox" class="ui-checkbox">
+          <span>
+            <img [src]="getImageUrl(tipo.flagImage)" alt="Icono de denuncia" class="denuncia-icon">
+            {{ tipo.nombre }}
+          </span>
+          <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i" (change)="selectDenuncia(i)">
         </div>
-        <div *ngIf="descripcionVisible[i]" class="descripcion">
+        <div *ngIf="descripcionVisible === i" class="descripcion">
           {{ tipo.descripcion }}
         </div>
       </li>
@@ -25,6 +29,7 @@
   <p>No hay denuncias anónimas o de ambas categorías disponibles.</p>
 </ng-template>
 
-<div *ngIf="errorMessage" class="error">
-  {{ errorMessage }}
-</div>
+<app-footer 
+  [denunciaSeleccionada]="selectedDenunciaIndex !== null"
+  (continuar)="handleContinue()">
+</app-footer>

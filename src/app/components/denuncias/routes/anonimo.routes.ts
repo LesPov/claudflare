@@ -6,4 +6,8 @@ export const anonimoRoutes: Routes = [
     loadComponent: () => import('../anonima/anonima.component').then(m => m.AnonimaComponent),
     // Asegúrate de que la ruta al componente sea correcta
   },
+  { 
+    path: 'subtipo', 
+    loadComponent: () => import('../anonima/subtipos/subtipos.component').then(m => m.SubtiposComponent),
+  },
 ];

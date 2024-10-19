@@ -66,12 +66,20 @@ img {
     gap: 10px;
 }
 
+.denuncia-item.selected {
+  background-color: #ffeba5; /* Color de fondo para el elemento seleccionado */
+}
+
+.denuncia-item:not(.selected):hover {
+  background-color: #f1f1f1;
+}
 
 .descripcion {
-    margin-top: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 14px;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
 .error {

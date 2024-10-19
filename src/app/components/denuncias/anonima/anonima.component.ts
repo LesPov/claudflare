@@ -1,27 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { TipoDenunciaInterface } from '../interface/tipoDenunciaInterface';
 import { DenunciasService } from '../services/denuncias.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../user/header/header.component';
+import { ToastrService } from 'ngx-toastr';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-anonima',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink, HeaderComponent],
+  imports: [FormsModule, CommonModule, HeaderComponent, FooterComponent],
   templateUrl: './anonima.component.html',
-  styleUrl: './anonima.component.css'
+  styleUrls: ['./anonima.component.css']
 })
 export class AnonimaComponent implements OnInit {
   tiposDenunciasAnonimas: TipoDenunciaInterface[] = [];
-  descripcionVisible: boolean[] = [];
-  errorMessage: string = '';
+  descripcionVisible: number | null = null;
+  selectedDenunciaIndex: number | null = null;
+  backgroundColor: string = '#ffffff'; // Color de fondo inicial
 
   constructor(
     private denunciasService: DenunciasService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerTiposDenunciaAnonimas();
@@ -31,23 +35,32 @@ export class AnonimaComponent implements OnInit {
     this.denunciasService.getTiposDenunciaAnonimas().subscribe({
       next: (tipos) => {
         this.tiposDenunciasAnonimas = tipos;
-        this.descripcionVisible = new Array(tipos.length).fill(false);
       },
       error: (err) => {
-        this.errorMessage = 'Error al obtener las denuncias anónimas';
+        this.toastr.error('Error al obtener las denuncias anónimas', 'Error');
         console.error(err);
       }
     });
   }
 
+ 
   toggleDescripcion(index: number): void {
-    this.descripcionVisible[index] = !this.descripcionVisible[index];
+    this.descripcionVisible = this.descripcionVisible === index ? null : index;
   }
 
-  // Método para obtener la URL de la imagen
+  selectDenuncia(index: number): void {
+    this.selectedDenunciaIndex = index;
+  }
+
+  handleContinue(): void {
+    if (this.selectedDenunciaIndex === null) {
+      this.toastr.error('Por favor, selecciona una denuncia para continuar.', 'Error');
+      return;
+    }
+    this.router.navigate(['/subtipo']);
+  }
+
   getImageUrl(flagImage: string): string {
-    // Asume que las imágenes se almacenan en una carpeta 'assets/images'
-    // Ajusta esta ruta según la estructura de tu proyecto
     return `assets/img/demandas/tipo_demandas/${flagImage}`;
   }
 }
