@@ -80,7 +80,7 @@ export class BotInfoService {
         
         this.currentUtterance = new SpeechSynthesisUtterance(text);
         this.currentUtterance.lang = 'es-ES'; // Configura el idioma.
-        this.currentUtterance.pitch = 1.5;    // Ajusta el tono de la voz.
+        this.currentUtterance.pitch = 1.1;    // Ajusta el tono de la voz.
         this.currentUtterance.rate = 1;       // Ajusta la velocidad de la voz.
 
         const availableVoices = window.speechSynthesis.getVoices();
