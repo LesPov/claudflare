@@ -21,6 +21,8 @@ export class AnonimaComponent implements OnInit {
   descripcionVisible: number | null = null;
   selectedDenunciaIndex: number | null = null;
   backgroundColor: string = '#ffffff';
+  isSpeaking: boolean = false;
+  speakingIndex: number | null = null;
 
   private infoListAnonima: string[] = [
     "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
@@ -40,7 +42,6 @@ export class AnonimaComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerTiposDenunciaAnonimas();
     this.botInfoService.setInfoList(this.infoListAnonima);
-    this.botInfoService.setCurrentComponent('anonima');
   }
 
   obtenerTiposDenunciaAnonimas(): void {
@@ -64,26 +65,34 @@ export class AnonimaComponent implements OnInit {
   }
 
   speakDenuncia(index: number): void {
+    // Si se está hablando, espera a que termine
+    if (this.isSpeaking) {
+      this.botInfoService.cancelSpeak(); // Cancela el habla actual
+      return; // No hacemos nada hasta que termine
+    }
+
     const denuncia = this.tiposDenunciasAnonimas[index];
 
     if (denuncia) {
       const name = denuncia.nombre;
       const description = denuncia.descripcion;
 
+      // Inicia la locución
+      this.isSpeaking = true;
+      this.speakingIndex = index;
+
       this.botInfoService.speak(name)
         .then(() => this.botInfoService.speak(description))
+        .then(() => {
+          this.isSpeaking = false;
+          this.speakingIndex = null;
+        })
         .catch((error) => {
           console.error('Error al hablar:', error);
+          this.isSpeaking = false;
+          this.speakingIndex = null;
         });
     }
-  }
-
-  pauseSpeak(): void {
-    this.botInfoService.pauseSpeak();
-  }
-
-  resumeSpeak(): void {
-    this.botInfoService.resumeSpeak();
   }
 
   getImageUrl(flagImage: string): string {

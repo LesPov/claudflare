@@ -68,6 +68,7 @@ h1 {
     position: absolute;
     right: 0;
     margin: 25px 15px;
+    -webkit-tap-highlight-color: transparent;
 }
 /* From Uiverse.io by mobinkakei */ 
 .loader {

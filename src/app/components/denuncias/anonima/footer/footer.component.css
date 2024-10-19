@@ -74,6 +74,8 @@
   font-size: 24px;
   cursor: not-allowed;
   transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+
 }
 
 .continue-btn.active {
