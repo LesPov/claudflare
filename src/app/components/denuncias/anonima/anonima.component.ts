@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../user/header/header.component';
 import { ToastrService } from 'ngx-toastr';
 import { FooterComponent } from './footer/footer.component';
+import { BotInfoService } from '../../home/bot/botInfoService';
 
 @Component({
   selector: 'app-anonima',
@@ -19,16 +20,27 @@ export class AnonimaComponent implements OnInit {
   tiposDenunciasAnonimas: TipoDenunciaInterface[] = [];
   descripcionVisible: number | null = null;
   selectedDenunciaIndex: number | null = null;
-  backgroundColor: string = '#ffffff'; // Color de fondo inicial
+  backgroundColor: string = '#ffffff'; 
+  isSpeaking: boolean = false;
+
+  private infoListAnonima: string[] = [
+    "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
+    "Selecciona el tipo de denuncia que mejor se ajuste a la situación que quieres reportar.",
+    "Recuerda proporcionar todos los detalles posibles para que la denuncia sea efectiva.",
+    "Aunque la denuncia es anónima, puedes hacer seguimiento usando un código que se te proporcionará.",
+    "Si necesitas más información sobre algún tipo de denuncia, toca el ícono de información."
+  ];
 
   constructor(
     private denunciasService: DenunciasService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private botInfoService: BotInfoService 
   ) {}
 
   ngOnInit(): void {
     this.obtenerTiposDenunciaAnonimas();
+    this.botInfoService.setInfoList(this.infoListAnonima); // Configura la lista de frases para este componente
   }
 
   obtenerTiposDenunciaAnonimas(): void {
@@ -43,7 +55,6 @@ export class AnonimaComponent implements OnInit {
     });
   }
 
- 
   toggleDescripcion(index: number): void {
     this.descripcionVisible = this.descripcionVisible === index ? null : index;
   }
@@ -52,15 +63,42 @@ export class AnonimaComponent implements OnInit {
     this.selectedDenunciaIndex = this.selectedDenunciaIndex === index ? null : index;
   }
 
+  speakDenuncia(index: number): void {
+    const denuncia = this.tiposDenunciasAnonimas[index];
+
+    if (denuncia) {
+      const name = denuncia.nombre;
+      const description = denuncia.descripcion;
+
+      this.botInfoService.speak(name)
+        .then(() => this.botInfoService.speak(description))
+        .then(() => {
+          this.isSpeaking = false;
+        })
+        .catch((error) => {
+          console.error('Error al hablar:', error);
+          this.isSpeaking = false;
+        });
+    }
+  }
+
+  pauseSpeak(): void {
+    this.botInfoService.pauseSpeak();
+  }
+
+  resumeSpeak(): void {
+    this.botInfoService.resumeSpeak();
+  }
+
+  getImageUrl(flagImage: string): string {
+    return `assets/img/demandas/tipo_demandas/${flagImage}`;
+  }
+
   handleContinue(): void {
     if (this.selectedDenunciaIndex === null) {
       this.toastr.error('Por favor, selecciona una denuncia para continuar.', 'Error');
       return;
     }
     this.router.navigate(['/subtipo']);
-  }
-
-  getImageUrl(flagImage: string): string {
-    return `assets/img/demandas/tipo_demandas/${flagImage}`;
   }
 }

@@ -3,29 +3,34 @@
   [showSpeakButton]="true"
   [componentName]="'anonima'">
 </app-header>
-<!-- Resto del template sin cambios --><div class="container" [style.background-color]="backgroundColor">
+
+<div class="container" [style.background-color]="backgroundColor">
   <div class="info">
     <i class='bx bx-error-circle'></i>
     <p>Marca la opción deseada</p>
   </div>
+  
   <div class="content" *ngIf="tiposDenunciasAnonimas.length > 0; else noData">
     <p>¿Qué quieres denunciar?</p>
     <ul>
       <li *ngFor="let tipo of tiposDenunciasAnonimas; let i = index" 
           class="denuncia-item" 
           [class.selected]="selectedDenunciaIndex === i">
+        
         <div class="denuncia-header" (click)="toggleDescripcion(i)">
           <span>
-            <img [src]="getImageUrl(tipo.flagImage)" alt="Icono de denuncia" class="denuncia-icon">
+            <img (click)="speakDenuncia(i)" [src]="getImageUrl(tipo.flagImage)" alt="Icono de denuncia" class="denuncia-icon">
             {{ tipo.nombre }}
           </span>
           <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i" (change)="selectDenuncia(i)">
         </div>
+
         <div *ngIf="descripcionVisible === i" class="descripcion">
           {{ tipo.descripcion }}
         </div>
       </li>
     </ul>
+
   </div>
 </div>
 
