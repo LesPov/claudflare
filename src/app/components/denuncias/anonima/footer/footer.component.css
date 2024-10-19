@@ -69,9 +69,9 @@
   border-radius: 10px;
   justify-content: center;
   align-items: center;
-  width: 40%;
-  height: 40%;
-  font-size: 18px;
+  width: 50%;
+  height: 50%;
+  font-size: 24px;
   cursor: not-allowed;
   transition: all 0.3s ease;
 }
@@ -83,7 +83,7 @@
 }
 
 .continue-btn i {
-  font-size: 30px;
+  font-size: 40px;
   color: #f89406;
   transition: all 0.3s ease;
 }
