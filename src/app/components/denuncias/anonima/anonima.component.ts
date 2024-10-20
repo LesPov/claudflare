@@ -23,6 +23,7 @@ export class AnonimaComponent implements OnInit {
   backgroundColor: string = '#ffffff';
   isSpeaking: boolean = false;
   speakingIndex: number | null = null;
+  pulsingStates: boolean[] = [];
 
   private infoListAnonima: string[] = [
     "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
@@ -48,6 +49,7 @@ export class AnonimaComponent implements OnInit {
     this.denunciasService.getTiposDenunciaAnonimas().subscribe({
       next: (tipos) => {
         this.tiposDenunciasAnonimas = tipos;
+        this.pulsingStates = new Array(tipos.length).fill(true);
       },
       error: (err) => {
         this.toastr.error('Error al obtener las denuncias anónimas', 'Error');
@@ -58,15 +60,16 @@ export class AnonimaComponent implements OnInit {
 
   toggleDescripcion(index: number): void {
     this.descripcionVisible = this.descripcionVisible === index ? null : index;
+    this.stopPulse(index);
   }
 
   selectDenuncia(index: number): void {
     this.selectedDenunciaIndex = this.selectedDenunciaIndex === index ? null : index;
+    this.stopPulse(index);
   }
 
   speakDenuncia(index: number): void {
     if (this.isSpeaking && this.speakingIndex === index) {
-      // Si ya está hablando sobre esta denuncia, no hacemos nada
       return;
     }
 
@@ -76,11 +79,11 @@ export class AnonimaComponent implements OnInit {
       const name = denuncia.nombre;
       const description = denuncia.descripcion;
 
-      // Cancelamos cualquier locución anterior
       this.botInfoService.cancelSpeak();
 
       this.isSpeaking = true;
       this.speakingIndex = index;
+      this.stopPulse(index);
 
       this.botInfoService.speak(name)
         .then(() => this.botInfoService.speak(description))
@@ -106,5 +109,13 @@ export class AnonimaComponent implements OnInit {
       return;
     }
     this.router.navigate(['/subtipo']);
+  }
+
+  stopPulse(index: number): void {
+    this.pulsingStates[index] = false;
+  }
+
+  isPulsing(index: number): boolean {
+    return this.pulsingStates[index];
   }
 }

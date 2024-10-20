@@ -1,4 +1,4 @@
-<app-header 
+<app-header  
   [title]="'Denuncias Anónimas'" 
   [showSpeakButton]="true"
   [componentName]="'anonima'">
@@ -19,7 +19,11 @@
         
         <div class="denuncia-header" (click)="toggleDescripcion(i)">
           <span>
-            <img (click)="speakDenuncia(i)" [src]="getImageUrl(tipo.flagImage)" alt="Icono de denuncia" class="denuncia-icon">
+            <img (click)="speakDenuncia(i)" 
+                 [src]="getImageUrl(tipo.flagImage)" 
+                 alt="Icono de denuncia" 
+                 class="denuncia-icon"
+                 [class.no-pulse]="!isPulsing(i)">
             {{ tipo.nombre }}
           </span>
           <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i" (change)="selectDenuncia(i)">
@@ -30,7 +34,6 @@
         </div>
       </li>
     </ul>
-
   </div>
 </div>
 
