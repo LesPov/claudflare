@@ -229,7 +229,7 @@ h1 {
 .menu .triangle {
   --dot: #ffffff;
   stroke: var(--path);
-  animation: colorChange 4s linear infinite; /* Aumentar la duración para un cambio más lento */
+  animation: colorChange 2s linear infinite; /* Aumentar la duración para un cambio más lento */
   cursor: pointer;
 }
 
