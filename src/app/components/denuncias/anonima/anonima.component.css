@@ -57,6 +57,7 @@ img {
   align-items: center;
   justify-content: space-between;
   height: 70px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .denuncia-header span {
@@ -87,34 +88,7 @@ img {
 .error {
   color: red;
 }
-.denuncia-icon {
-  width: 60px;
-  border-radius: 50%;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.denuncia-icon.pulse {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-  }
-  70% {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-}
-
-/* From Uiverse.io by Galahhad */
-/* checkbox settings 👇 */
+/* checkbox settings  */
 
 .ui-checkbox {
   --primary-color: #1677ff;
@@ -152,6 +126,8 @@ img {
   transition: all 0.3s;
   cursor: pointer;
   position: relative;
+  margin-right: 10px;
+
 }
 
 .ui-checkbox::after {
