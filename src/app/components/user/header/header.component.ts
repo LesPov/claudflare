@@ -15,14 +15,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() title: string = '';
   @Input() showSpeakButton: boolean = false;
   @Input() componentName: string = '';
-
+  private darkTheme = 'dark-theme';
+  private iconTheme = 'uil-sun';
   isSpeaking: boolean = false;
   private subscription: Subscription | undefined;
 
   constructor(
     private location: Location,
     private botInfoService: BotInfoService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.botInfoService.setCurrentComponent(this.componentName);
@@ -63,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         });
     }
   }
-  
+
   toggleSpeakingAnimation(isSpeaking: boolean): void {
     const element = document.querySelector('.cuadro');
     if (element) {
@@ -74,5 +75,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
-  
+  toggleTheme(): void {
+    const currentTheme = this.getCurrentTheme();
+    const currentIcon = this.getCurrentIcon();
+
+    this.applyTheme(currentTheme === 'dark' ? 'light' : 'dark', currentIcon === 'uil-moon' ? 'uil-sun' : 'uil-moon');
+
+    localStorage.setItem('selected-theme', currentTheme === 'dark' ? 'light' : 'dark');
+    localStorage.setItem('selected-icon', currentIcon === 'uil-moon' ? 'uil-sun' : 'uil-moon');
+  }
+
+  private getCurrentTheme(): string {
+    return document.body.classList.contains(this.darkTheme) ? 'dark' : 'light';
+  }
+
+  private getCurrentIcon(): string {
+    const themeButton = document.getElementById('theme-button');
+    return themeButton?.classList.contains(this.iconTheme) ? 'uil-moon' : 'uil-sun';
+  }
+  private applyTheme(theme: string, icon: string): void {
+    document.body.classList[theme === 'dark' ? 'add' : 'remove'](this.darkTheme);
+    this.getElementByIdAndApplyClass('theme-button', this.iconTheme, icon === 'uil-moon');
+  }
+
+  private getElementByIdAndApplyClass(id: string, className: string, shouldAdd: boolean): void {
+    const element = document.getElementById(id);
+    if (element) {
+      element.classList[shouldAdd ? 'add' : 'remove'](className);
+    }
+  }
 }

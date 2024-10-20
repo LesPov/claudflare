@@ -20,7 +20,6 @@ export class AnonimaComponent implements OnInit {
   tiposDenunciasAnonimas: TipoDenunciaInterface[] = [];
   descripcionVisible: number | null = null;
   selectedDenunciaIndex: number | null = null;
-  backgroundColor: string = '#ffffff';
   isSpeaking: boolean = false;
   speakingIndex: number | null = null;
   pulsingStates: boolean[] = [];

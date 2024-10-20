@@ -13,5 +13,32 @@
 body {
     width: auto;
     height: auto;
+    background: var(--background_body);
+}
+
+:root {
+    /* ///header//// */
+    --background_header: #1d1c49;
+    --background_body: #ffffff;
+
+
+}
+
+
+
+/* //////////// Dark Tema ///////////////////// */
+body.dark-theme {
+
+    --background_header: #1d1c49;
+    --background_body: #000000;
+
+
+
+
+
+    /* //////////////header//////////// */
+
+
+    /* ///////////////////////about/////////////// */
 
 }

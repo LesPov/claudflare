@@ -1,6 +1,6 @@
 header {
   height: 150px;
-  background: #1d1c49;
+  background: var(--background_header);
   display: flex;
   flex-direction: column;
   color: #fff;
