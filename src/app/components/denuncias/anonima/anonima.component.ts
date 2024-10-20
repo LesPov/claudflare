@@ -36,7 +36,7 @@ export class AnonimaComponent implements OnInit {
     private denunciasService: DenunciasService,
     private router: Router,
     private toastr: ToastrService,
-    private botInfoService: BotInfoService
+    private botInfoService: BotInfoService 
   ) {}
 
   ngOnInit(): void {
@@ -65,10 +65,9 @@ export class AnonimaComponent implements OnInit {
   }
 
   speakDenuncia(index: number): void {
-    // Si se está hablando, espera a que termine
-    if (this.isSpeaking) {
-      this.botInfoService.cancelSpeak(); // Cancela el habla actual
-      return; // No hacemos nada hasta que termine
+    if (this.isSpeaking && this.speakingIndex === index) {
+      // Si ya está hablando sobre esta denuncia, no hacemos nada
+      return;
     }
 
     const denuncia = this.tiposDenunciasAnonimas[index];
@@ -77,7 +76,9 @@ export class AnonimaComponent implements OnInit {
       const name = denuncia.nombre;
       const description = denuncia.descripcion;
 
-      // Inicia la locución
+      // Cancelamos cualquier locución anterior
+      this.botInfoService.cancelSpeak();
+
       this.isSpeaking = true;
       this.speakingIndex = index;
 
