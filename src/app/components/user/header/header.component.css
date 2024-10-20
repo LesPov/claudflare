@@ -224,7 +224,41 @@ h1 {
 
 .loader {
   display: inline-block;
-  margin: 0 16px;
+  margin: 0 5px;
+}
+.menu .triangle {
+  --dot: #ffffff;
+  stroke: var(--path);
+  animation: colorChange 4s linear infinite; /* Aumentar la duración para un cambio más lento */
+  cursor: pointer;
+}
+
+@keyframes colorChange {
+  0% {
+    stroke: #000000; /* Negro */
+  }
+  20% {
+    stroke: #7b55f8; /* Color 1 */
+  }
+  40% {
+    stroke: #ff0000; /* Color 2 */
+  }
+  60% {
+    stroke: #00ff00; /* Color 3 */
+  }
+  80% {
+    stroke: #ffea00; /* Color 4 */
+  }
+  100% {
+    stroke: #ffffff; /* Regresa a blanco */
+  }
+}
+
+.loader svg polygon {
+  fill: none;
+  stroke-width: 10px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
 
