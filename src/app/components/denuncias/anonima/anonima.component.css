@@ -7,13 +7,8 @@
   top: 150px;
   position: absolute;
   z-index: 1;
-  overflow: hidden; /* Esto oculta completamente el scroll */
-  scrollbar-width: none; /* Oculta el scroll en Firefox */
 }
 
-.container::-webkit-scrollbar {
-  display: none; /* Oculta el scroll en navegadores basados en Webkit (Chrome, Safari) */
-}
 
 .info {
   width: 100%;

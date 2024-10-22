@@ -15,6 +15,11 @@ body {
     height: auto;
     background: var(--background_body);
 }
+html{
+    overflow-y: auto;
+    scrollbar-width: none;
+
+}
 
 :root {
     /* ///header//// */
