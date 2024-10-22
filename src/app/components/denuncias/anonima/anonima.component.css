@@ -58,6 +58,7 @@ img {
   justify-content: space-between;
   height: 70px;
   -webkit-tap-highlight-color: transparent;
+
 }
 
 .denuncia-header span {
@@ -68,6 +69,8 @@ img {
   justify-content: center;
   flex-direction: row;
   gap: 20px;
+  color: #333;
+
 }
 
 .denuncia-icon {
@@ -109,7 +112,7 @@ img {
 .denuncia-item.selected {
   background-color: #ffeba5;
   /* Color de fondo para el elemento seleccionado */
-  color: #333;
+  color: #000000;
   /* Color del texto cuando está seleccionado */
 }
 .descripcion {

@@ -23,4 +23,8 @@ export class DenunciasService {
     return this.http.get<TipoDenunciaInterface[]>(`${this.myAppUrl}${this.myApiUrl}tipos/anonimas`);
   }
 
+  // NUEVO MÉTODO PARA OBTENER SUBTIPOS DE DENUNCIA
+  getSubtiposDenuncia(nombreTipoDenuncia: string): Observable<any> {
+    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}tipos/subtiposdenuncia/${nombreTipoDenuncia}`);
+  }
 }

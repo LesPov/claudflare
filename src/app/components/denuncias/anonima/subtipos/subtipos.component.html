@@ -1,1 +1,40 @@
-<p>subtipos works!</p>
+<app-header [title]="'Subtipos de Denuncia'" [showSpeakButton]="true" [componentName]="'subtipos'">
+</app-header>
+
+<div class="container">
+    <div class="info">
+        <i class='bx bx-error-circle'></i>
+        <p>Selecciona el subtipo que deseas denunciar.</p>
+    </div>
+
+    <div class="content" *ngIf="subtipos.length > 0; else noData">
+        <ul>
+            <li *ngFor="let subtipo of subtipos; let i = index" class="denuncia-item"
+                [class.selected]="selectedDenunciaIndex === i">
+                <div class="denuncia-header" (click)="toggleDescripcion(i)">
+                    <span>
+                      <img (click)="speakDenuncia(i)" 
+                           [src]="getImageUrl(subtipo.flagImage)" 
+                           alt="" 
+                           class="denuncia-icon"
+                           [class.no-pulse]="!isPulsing(i)">
+                           {{ subtipo.nombre }} <!-- Cambia tipo.nombre por subtipo.nombre -->
+                    </span>
+                    <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i" (change)="selectDenuncia(i)">
+                  </div>
+                  <div *ngIf="descripcionVisible === i" class="descripcion">
+                    {{ subtipo.descripcion }} <!-- Cambia tipo.descripcion por subtipo.descripcion -->
+                  </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<ng-template #noData>
+    <p>No hay subtipos disponibles para la denuncia seleccionada.</p>
+</ng-template>
+
+<app-footer 
+  [denunciaSeleccionada]="selectedDenunciaIndex !== null"
+  (continuar)="handleContinue()">
+</app-footer>

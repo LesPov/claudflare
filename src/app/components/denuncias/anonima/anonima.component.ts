@@ -73,10 +73,9 @@ export class AnonimaComponent implements OnInit {
     }
 
     const denuncia = this.tiposDenunciasAnonimas[index];
-
     if (denuncia) {
       const name = denuncia.nombre;
-      const description = denuncia.descripcion;
+      const description = denuncia.descripcion || 'No hay descripción disponible';
 
       this.botInfoService.cancelSpeak();
 
@@ -107,8 +106,16 @@ export class AnonimaComponent implements OnInit {
       this.toastr.error('Por favor, selecciona una denuncia para continuar.', 'Error');
       return;
     }
-    this.router.navigate(['/subtipo']);
+    
+    // Obtener el nombre del tipo de denuncia seleccionado
+    const selectedDenuncia = this.tiposDenunciasAnonimas[this.selectedDenunciaIndex];
+    if (selectedDenuncia) {
+      // Navegar a la ruta de subtipos y pasar el nombre como parámetro
+      this.router.navigate(['/subtipos', { nombreTipoDenuncia: selectedDenuncia.nombre }]);
+    
+    }
   }
+  
 
   stopPulse(index: number): void {
     this.pulsingStates[index] = false;
