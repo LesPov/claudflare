@@ -9,6 +9,8 @@
     width: 100%;
     bottom: 0px;
     box-shadow: 0px -2px 8px 1px #00000038;
+    position: fixed;
+    z-index: 200;
 }
 
 /* From Uiverse.io by adamgiebl */

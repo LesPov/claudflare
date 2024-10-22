@@ -2,7 +2,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   flex-direction: column;
+  top: 150px;
+  position: absolute;
+  z-index: 1;
+ /* Evitar mostrar scrollbars */
+ overflow-y: scroll; /* Asegura que el contenido pueda hacer scroll */
+ scrollbar-width: none; /* Firefox */
+}
+
+/* Para navegadores basados en WebKit como Chrome, Safari */
+.container::-webkit-scrollbar {
+ display: none;
 }
 
 .info {

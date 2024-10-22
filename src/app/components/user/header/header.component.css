@@ -4,6 +4,9 @@ header {
   display: flex;
   flex-direction: column;
   color: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 200;
   border-bottom: 2px solid red;
 }
 

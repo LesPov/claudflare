@@ -18,12 +18,12 @@
                            alt="" 
                            class="denuncia-icon"
                            [class.no-pulse]="!isPulsing(i)">
-                           {{ subtipo.nombre }} <!-- Cambia tipo.nombre por subtipo.nombre -->
+                           {{ subtipo.nombre }} 
                     </span>
                     <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i" (change)="selectDenuncia(i)">
                   </div>
                   <div *ngIf="descripcionVisible === i" class="descripcion">
-                    {{ subtipo.descripcion }} <!-- Cambia tipo.descripcion por subtipo.descripcion -->
+                    {{ subtipo.descripcion }} 
                   </div>
             </li>
         </ul>
