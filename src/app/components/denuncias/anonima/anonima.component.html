@@ -2,11 +2,11 @@
 </app-header>
 
 <div class="container">
-  <div class="info">
+  <div class="info" *ngIf="!denunciaSelected">
     <i class='bx bx-error-circle'></i>
     <p>Marca la opción deseada</p>
   </div>
-
+  
   <div class="content" *ngIf="tiposDenunciasAnonimas.length > 0; else noData">
     <p>¿Qué quieres denunciar?</p>
     <ul>

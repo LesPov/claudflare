@@ -23,6 +23,7 @@ export class AnonimaComponent implements OnInit {
   isSpeaking: boolean = false;
   speakingIndex: number | null = null;
   pulsingStates: boolean[] = [];
+  denunciaSelected: boolean = false;  // Flag to track if a denuncia is selected
 
   private infoListAnonima: string[] = [
     "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
@@ -64,6 +65,7 @@ export class AnonimaComponent implements OnInit {
 
   selectDenuncia(index: number): void {
     this.selectedDenunciaIndex = this.selectedDenunciaIndex === index ? null : index;
+    this.denunciaSelected = this.selectedDenunciaIndex !== null;  // Set the flag based on selection
     this.stopPulse(index);
   }
 
