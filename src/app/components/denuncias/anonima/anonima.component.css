@@ -7,14 +7,12 @@
   top: 150px;
   position: absolute;
   z-index: 1;
- /* Evitar mostrar scrollbars */
- overflow-y: scroll; /* Asegura que el contenido pueda hacer scroll */
- scrollbar-width: none; /* Firefox */
+  overflow: hidden; /* Esto oculta completamente el scroll */
+  scrollbar-width: none; /* Oculta el scroll en Firefox */
 }
 
-/* Para navegadores basados en WebKit como Chrome, Safari */
 .container::-webkit-scrollbar {
- display: none;
+  display: none; /* Oculta el scroll en navegadores basados en Webkit (Chrome, Safari) */
 }
 
 .info {
@@ -43,6 +41,7 @@ img {
 
 .content {
   width: 90%;
+  margin-bottom: 110px;
 }
 
 .content p {
