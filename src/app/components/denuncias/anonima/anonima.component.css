@@ -48,7 +48,14 @@ img {
   -webkit-tap-highlight-color: transparent;
 
 }
-
+.nombre{
+  font-weight: 800;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
 .denuncia-item:hover {
   background-color: #f1f1f1;
 }

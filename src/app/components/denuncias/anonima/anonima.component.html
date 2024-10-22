@@ -1,7 +1,4 @@
-<app-header  
-  [title]="'Denuncias Anónimas'" 
-  [showSpeakButton]="true"
-  [componentName]="'anonima'">
+<app-header [title]="'Denuncias Anónimas'" [showSpeakButton]="true" [componentName]="'anonima'">
 </app-header>
 
 <div class="container">
@@ -9,24 +6,22 @@
     <i class='bx bx-error-circle'></i>
     <p>Marca la opción deseada</p>
   </div>
-  
+
   <div class="content" *ngIf="tiposDenunciasAnonimas.length > 0; else noData">
     <p>¿Qué quieres denunciar?</p>
     <ul>
-      <li *ngFor="let tipo of tiposDenunciasAnonimas; let i = index" 
-          class="denuncia-item" 
-          [class.selected]="selectedDenunciaIndex === i">
-        
+      <li *ngFor="let tipo of tiposDenunciasAnonimas; let i = index" class="denuncia-item"
+        [class.selected]="selectedDenunciaIndex === i">
+
         <div class="denuncia-header" (click)="toggleDescripcion(i)">
           <span>
-            <img (click)="speakDenuncia(i)" 
-                 [src]="getImageUrl(tipo.flagImage)" 
-                 alt="" 
-                 class="denuncia-icon"
-                 [class.no-pulse]="!isPulsing(i)">
-            {{ tipo.nombre }}
+            <img (click)="speakDenuncia(i)" [src]="getImageUrl(tipo.flagImage)" alt="" class="denuncia-icon"
+              [class.no-pulse]="!isPulsing(i)">
+            <div class="nombre"> {{ tipo.nombre }}<i class='bx bx-info-circle'></i>
+            </div>
           </span>
-          <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i" (change)="selectDenuncia(i)">
+          <input type="checkbox" class="ui-checkbox" [checked]="selectedDenunciaIndex === i"
+            (change)="selectDenuncia(i)">
         </div>
 
         <div *ngIf="descripcionVisible === i" class="descripcion">
@@ -41,7 +36,5 @@
   <p>No hay denuncias anónimas o de ambas categorías disponibles.</p>
 </ng-template>
 
-<app-footer 
-  [denunciaSeleccionada]="selectedDenunciaIndex !== null"
-  (continuar)="handleContinue()">
+<app-footer [denunciaSeleccionada]="selectedDenunciaIndex !== null" (continuar)="handleContinue()">
 </app-footer>
