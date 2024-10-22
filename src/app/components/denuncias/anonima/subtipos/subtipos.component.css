@@ -2,7 +2,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     flex-direction: column;
+    top: 180px;
+    position: absolute;
+    z-index: 1;
   }
   
   .info {
@@ -10,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 15px;
+    padding: 5px 15px;
     gap: 5px;
     background: #ffeba5;
     margin-bottom: 5px;
@@ -21,6 +25,8 @@
     width: 60px;
     border-radius: 50%;
     margin-left: 10px;
+    aspect-ratio: auto;
+
   }
   
   .info i {

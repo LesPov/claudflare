@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderComponent } from '../../../user/header/header.component';
 import { DenunciasService } from '../../services/denuncias.service';
 import { FooterComponent } from '../footer/footer.component';
 import { SubtipoDenunciaInterface } from '../../interface/subtipoDenunciaInterface';
 import { BotInfoService } from '../../../home/bot/botInfoService';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-subtipos',
@@ -40,7 +40,6 @@ export class SubtiposComponent implements OnInit {
     private toastr: ToastrService,
     private botInfoService: BotInfoService
   ) { }
-
   ngOnInit(): void {
     // Obtener el nombre del tipo de denuncia de los parámetros de la ruta
     this.route.params.subscribe(params => {
@@ -48,14 +47,13 @@ export class SubtiposComponent implements OnInit {
       this.obtenerSubtipos(this.tipoDenuncia);
     });
     this.botInfoService.setInfoList(this.infosubtiposlist);
-
   }
+
   obtenerSubtipos(nombreTipoDenuncia: string | null): void {
     if (nombreTipoDenuncia) {
       this.denunciasService.getSubtiposDenuncia(nombreTipoDenuncia).subscribe({
         next: (response) => {
           this.subtipos = response.subtipos;
-          // Asegúrate de que el tamaño de pulsingStates sea igual al de subtipos
           this.pulsingStates = new Array(this.subtipos.length).fill(true);
         },
         error: (err) => {
@@ -65,6 +63,7 @@ export class SubtiposComponent implements OnInit {
       });
     }
   }
+
 
   toggleDescripcion(index: number): void {
     this.descripcionVisible = this.descripcionVisible === index ? null : index;

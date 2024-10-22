@@ -4,10 +4,10 @@ import { DenunciasService } from '../services/denuncias.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../../user/header/header.component';
 import { ToastrService } from 'ngx-toastr';
 import { FooterComponent } from './footer/footer.component';
 import { BotInfoService } from '../../home/bot/botInfoService';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-anonima',
@@ -24,6 +24,7 @@ export class AnonimaComponent implements OnInit {
   speakingIndex: number | null = null;
   pulsingStates: boolean[] = [];
   denunciaSelected: boolean = false;  // Flag to track if a denuncia is selected
+  tipoDenuncia: string | null = null;  // Guardar el tipo de denuncia
 
   private infoListAnonima: string[] = [
     "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",

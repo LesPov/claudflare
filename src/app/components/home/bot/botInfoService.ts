@@ -27,7 +27,7 @@ export class BotInfoService {
       responsiveVoice.init();
     }
   }
-
+ 
   /**
    * Establece el componente actual y resetea el índice de la lista de información.
    * @param component - Nombre del componente actual
