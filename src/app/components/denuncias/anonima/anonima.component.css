@@ -23,7 +23,7 @@
 }
 .info_consultas{
   height: 20vh;
-    border: 0.5px solid #000;
+    border: 1px solid #ccc;
     width: 90%;
     border-radius: 10px;
 }
