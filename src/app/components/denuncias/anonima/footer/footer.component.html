@@ -1,15 +1,16 @@
 <div class="footer-container">
-    <div class="dots-container">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-    <button 
-      (click)="continuarPaso()" 
-      class="continue-btn"
-      [class.active]="denunciaSeleccionada"
-      [disabled]="!denunciaSeleccionada"
-    >
-      Continuar <i class='bx bx-right-arrow-alt' [class.bx-tada]="denunciaSeleccionada"></i>
-    </button>
+  <!-- footer.component.html -->
+  <div class="dots-container" *ngIf="showDots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
   </div>
+ <!-- Contador de pasos -->
+ <div class="step-counter">
+   {{currentStep}} / {{totalSteps}}
+</div>
+  <button (click)="continuarPaso()" class="continue-btn" [class.active]="denunciaSeleccionada"
+    [disabled]="!denunciaSeleccionada">
+    Continuar <i class='bx bx-right-arrow-alt' [class.bx-tada]="denunciaSeleccionada"></i>
+  </button>
+</div>

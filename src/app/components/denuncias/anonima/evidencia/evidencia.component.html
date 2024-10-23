@@ -1,0 +1,20 @@
+<app-header 
+[title]="'Denuncias Anónimas'"
+   [tipoDenuncia]="subtipoDenuncia"  
+  [showSpeakButton]="true" 
+  [componentName]="'evidencia'">
+</app-header>
+
+<div class="container">
+    <div class="relato">
+      <p>Relato de lo que pasó:</p>
+      <textarea class="descripcion" placeholder="Agrega el detalle de como ocurrieron los hechos"></textarea>
+    </div>
+  </div>
+  
+<app-footer 
+  [currentStep]="currentStep"
+  [totalSteps]="totalSteps"
+  [denunciaSeleccionada]="true" 
+  (continuar)="handleContinue()">
+</app-footer>

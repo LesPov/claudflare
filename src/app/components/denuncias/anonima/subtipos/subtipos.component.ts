@@ -24,6 +24,7 @@ export class SubtiposComponent implements OnInit {
   pulsingStates: boolean[] = [];
   descripcionVisible: number | null = null;
   selectedDenunciaIndex: number | null = null;
+  denunciaSelected: boolean = false;  // Flag to track if a denuncia is selected
 
   private infosubtiposlist: string[] = [
     "Por favor, selecciona un subtipo de denuncia.",
@@ -71,6 +72,7 @@ export class SubtiposComponent implements OnInit {
   }
   selectDenuncia(index: number): void {
     this.selectedDenunciaIndex = this.selectedDenunciaIndex === index ? null : index;
+    this.denunciaSelected = this.selectedDenunciaIndex !== null;  // Set the flag based on selection
     this.stopPulse(index);
   }
   getImageUrl(flagImage: string): string {
@@ -117,7 +119,8 @@ export class SubtiposComponent implements OnInit {
     // Obtener el nombre del tipo de denuncia seleccionado
     const selectedDenuncia = this.subtipos[this.selectedDenunciaIndex];
     if (selectedDenuncia) {
-      // Navegar a la ruta de denuncias anonimas
+      // Navegar a la ruta de evidencias
+      this.router.navigate(['/evidencia', { nombreSubTipoDenuncia: selectedDenuncia.nombre }]);
 
 
     }

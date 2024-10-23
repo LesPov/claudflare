@@ -1,4 +1,4 @@
-<app-header [title]="'Denuncias Anónimas'" [showSpeakButton]="true" [componentName]="'anonima'">
+<app-header [title]="'Denuncias Anónimas'" [showSpeakButton]="true" [componentName]="'tipo'">
 </app-header>
 
 <div class="container">
@@ -6,7 +6,7 @@
     <i class='bx bx-error-circle'></i>
     <p>Marca la opción deseada</p>
   </div>
-  
+
   <div class="content" *ngIf="tiposDenunciasAnonimas.length > 0; else noData">
     <p>¿Qué quieres denunciar?</p>
     <ul>
@@ -36,5 +36,5 @@
   <p>No hay denuncias anónimas o de ambas categorías disponibles.</p>
 </ng-template>
 
-<app-footer [denunciaSeleccionada]="selectedDenunciaIndex !== null" (continuar)="handleContinue()">
+<app-footer [denunciaSeleccionada]="selectedDenunciaIndex !== null" [showDots]="true" (continuar)="handleContinue()">
 </app-footer>

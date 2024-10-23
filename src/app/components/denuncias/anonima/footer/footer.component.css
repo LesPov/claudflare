@@ -91,3 +91,28 @@
   color: #f89406;
   transition: all 0.3s ease;
 }
+.dots-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #ddd;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dot.active {
+    background-color: #007bff;
+  }
+  
+  .step-counter {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  

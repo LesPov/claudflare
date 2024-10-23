@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { TipoDenunciaInterface } from '../interface/tipoDenunciaInterface';
+import { DenunciaAnonimaInterface } from '../interface/denunciaAnonimaInterface';
 
 
 @Injectable({
@@ -26,5 +27,10 @@ export class DenunciasService {
   // NUEVO MÉTODO PARA OBTENER SUBTIPOS DE DENUNCIA
   getSubtiposDenuncia(nombreTipoDenuncia: string): Observable<any> {
     return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}tipos/subtiposdenuncia/${nombreTipoDenuncia}`);
+  }
+  // Crear una denuncia anónima
+  crearDenunciaAnonima(denuncia: DenunciaAnonimaInterface): Observable<DenunciaAnonimaInterface> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<DenunciaAnonimaInterface>(`${this.myAppUrl}${this.myApiUrl}`, denuncia, { headers });
   }
 }

@@ -14,4 +14,12 @@ export const anonimoRoutes: Routes = [
     path: 'subtipos', 
     loadComponent: () => import('../anonima/subtipos/subtipos.component').then(m => m.SubtiposComponent),
   },
+  { 
+    path: 'evidencia', 
+    loadComponent: () => import('../anonima/evidencia/evidencia.component').then(m => m.EvidenciaComponent),
+  },
+  { 
+    path: 'ubicacion', 
+    loadComponent: () => import('../anonima/ubicacion/ubicacion.component').then(m => m.UbicacionComponent),
+  },
 ];
