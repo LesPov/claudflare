@@ -9,7 +9,6 @@
 }
 .container_content {
   width: 90%;
-  margin-bottom: 30px;
   position: fixed;
   bottom: 20px;
   border-radius: 15px;
@@ -18,6 +17,15 @@
   align-items: center;
   flex-direction: column;
   gap: 30px;
+}
+.consultas_anonimas h1{
+  margin: 15px;
+}
+.info_consultas{
+  height: 20vh;
+    border: 0.5px solid #000;
+    width: 90%;
+    border-radius: 10px;
 }
 /* Input container */
 .input-container {
