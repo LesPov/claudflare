@@ -3,10 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* background-image: url(../../../assets/img/tombos.png) ;
-    background-size: cover; 
-    background-position: center;  
-    background-repeat: no-repeat;  */
+
     height: auto;
     width: 100%;
 }
