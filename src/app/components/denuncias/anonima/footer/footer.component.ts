@@ -11,10 +11,11 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
-  @Input() currentStep = 1;
-  @Input() totalSteps = 3;
+  @Input() currentStep: number | null = null;
+  @Input() totalSteps: number | null = null;
   @Input() denunciaSeleccionada = false;
   @Input() showDots = false;  // Nueva propiedad para mostrar/ocultar los dots
+  @Input() showStepCounter: boolean = false; // Nuevo input para controlar visibilidad
 
   @Output() continuar = new EventEmitter<void>();
 

@@ -26,6 +26,7 @@ export class TiposComponent implements OnInit {
   denunciaSelected: boolean = false;  // Flag to track if a denuncia is selected
   tipoDenuncia: string | null = null;  // Guardar el tipo de denuncia
 
+
   private infoListAnonima: string[] = [
     "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
     "Selecciona el tipo de denuncia que mejor se ajuste a la situación que quieres reportar.",
