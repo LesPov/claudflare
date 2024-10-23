@@ -51,41 +51,64 @@ export class HeaderComponent implements OnInit, OnDestroy {
         ? `Subtipos de ${this.tipoDenuncia}`  // Muestra el tipo de denuncia en el header
         : this.title;
     }
-  speak(): void {
-    if (this.isSpeaking) {
-      this.botInfoService.cancelSpeak();
-      this.isSpeaking = false;
-      this.toggleSpeakingAnimation(false); // Desactivar la animación
-    } else {
-      const nextInfo = this.botInfoService.getNextInfo();
-      this.isSpeaking = true;
-      this.toggleSpeakingAnimation(true); // Activar la animación
-      this.botInfoService.speak(nextInfo)
-        .then(() => {
-          this.isSpeaking = false;
-          this.toggleSpeakingAnimation(false); // Desactivar la animación al terminar
-        })
-        .catch((error) => {
-          console.error('Error al hablar:', error);
-          this.isSpeaking = false;
-          this.toggleSpeakingAnimation(false); // Desactivar la animación en caso de error
-        });
+    speak(): void {
+      const iconElement = document.querySelector('.bx-user-voice');
+      
+      if (this.isSpeaking) {
+        // Si ya está hablando, cancelamos el habla
+        this.botInfoService.cancelSpeak();
+        this.isSpeaking = false;
+        this.toggleSpeakingAnimation(false);
+        iconElement?.classList.remove('speaking-active');  // Removemos la clase activa
+        this.activatePulseAnimation();  // Activamos la animación de pulso
+      } else {
+        // Si no está hablando, obtenemos la siguiente información para hablar
+        const nextInfo = this.botInfoService.getNextInfo();
+        this.isSpeaking = true;
+        this.toggleSpeakingAnimation(true);
+        iconElement?.classList.add('speaking-active');  // Añadimos la clase activa
+    
+        this.botInfoService.speak(nextInfo)
+          .then(() => {
+            this.isSpeaking = false;
+            this.toggleSpeakingAnimation(false);
+            iconElement?.classList.remove('speaking-active');  // Removemos la clase activa
+            this.activatePulseAnimation();  // Activamos la animación de pulso
+          })
+          .catch((error) => {
+            console.error('Error al hablar:', error);
+            this.isSpeaking = false;
+            this.toggleSpeakingAnimation(false);
+            iconElement?.classList.remove('speaking-active');
+            this.activatePulseAnimation();  // Activamos la animación de pulso
+          });
+      }
     }
-  }
+    
+    activatePulseAnimation(): void {
+      const element = document.querySelector('.cuadro');
+      if (element) {
+        element.classList.add('pulse-animation');  // Activamos la animación de pulso
+      }
+    }
+    
+    
+    toggleSpeakingAnimation(isSpeaking: boolean): void {
+      const element = document.querySelector('.cuadro');
+      if (element) {
+        if (isSpeaking) {
+          element.classList.add('speaking');
+        } else {
+          element.classList.remove('speaking');
+        }
+      }
+    }
+    
   getHeaderClass(): string {
     return this.componentName === 'subtipos' ? 'header-subtipos' : '';
   }
   
-  toggleSpeakingAnimation(isSpeaking: boolean): void {
-    const element = document.querySelector('.cuadro');
-    if (element) {
-      if (isSpeaking) {
-        element.classList.add('speaking');
-      } else {
-        element.classList.remove('speaking');
-      }
-    }
-  }
+
   toggleTheme(): void {
     const currentTheme = this.getCurrentTheme();
     const currentIcon = this.getCurrentIcon();
