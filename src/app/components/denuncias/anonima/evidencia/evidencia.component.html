@@ -4,12 +4,10 @@
 </app-header>
 
 <div class="container">
-    <!-- In evidencia.component.html -->
     <div class="relato">
         <p>Relato de lo que pasó:</p>
         <textarea class="descripcion" placeholder="Agrega el detalle de cómo ocurrieron los hechos"
-            (input)="onDescripcionChange($event)">
-    </textarea>
+            (input)="onDescripcionChange($event)"></textarea>
 
         <!-- Error message -->
         <div *ngIf="showError" class="error-message" >

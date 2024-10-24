@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,9 @@ import { DenunciaStorageService } from '../../services/denunciaStorage.service';
   standalone: true,
   imports: [FormsModule, CommonModule, HeaderComponent, FooterComponent],
   templateUrl: './evidencia.component.html',
-  styleUrls: ['./evidencia.component.css']
+  styleUrls: ['./evidencia.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush 
+
 })
 export class EvidenciaComponent implements OnInit {
   subtipoDenuncia: string | null = null;
@@ -39,7 +41,9 @@ export class EvidenciaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private denunciaStorage: DenunciaStorageService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cdr: ChangeDetectorRef  // Añade esto
+
   ) { }
 
   ngOnInit(): void {
@@ -50,11 +54,11 @@ export class EvidenciaComponent implements OnInit {
   onDescripcionChange(event: Event) {
     const input = event.target as HTMLTextAreaElement;
     this.descripcion = input.value;
-    
+
     // Count words by splitting on whitespace and filtering out empty strings
     const words = this.descripcion.trim().split(/\s+/).filter(word => word.length > 0);
     this.wordCount = words.length;
-    
+
     // Show error if words are less than minimum and description is not empty
     this.showError = this.descripcion.trim().length > 0 && this.wordCount < this.minimumWords;
   }
@@ -141,14 +145,19 @@ export class EvidenciaComponent implements OnInit {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.click();
   }
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       this.selectedMultimedia = Array.from(input.files);
+  
+      // Usar setTimeout para retrasar el cambio de URL
+      setTimeout(() => {
+        this.cdr.detectChanges();
+      });
     }
   }
-
+  
+  
   isImage(file: File): boolean {
     return file.type.startsWith('image/');
   }
@@ -162,30 +171,30 @@ export class EvidenciaComponent implements OnInit {
   }
 
   // Método para continuar al siguiente paso (solo si la descripción no está vacía)
- 
-handleContinue(): void {
-  if (this.descripcion.trim().length === 0) {
-    this.toastr.error('Debes ingresar una descripción para continuar');
-    return;
-  }
-  
-  if (this.wordCount < this.minimumWords) {
-    this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
-    return;
-  }
 
-  // Guardar en el storage
-  const pruebasStr = this.selectedMultimedia.length > 0 ? 'multimedia_adjunta' : undefined;
-  const audioStr = this.audioBlob ? 'audio_adjunto' : undefined;
-  
-  this.denunciaStorage.setDescripcionPruebas(
-    this.descripcion,
-    pruebasStr,
-    audioStr
-  );
-  
-  this.router.navigate(['/ubicacion']);
-}
+  handleContinue(): void {
+    if (this.descripcion.trim().length === 0) {
+      this.toastr.error('Debes ingresar una descripción para continuar');
+      return;
+    }
+
+    if (this.wordCount < this.minimumWords) {
+      this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
+      return;
+    }
+
+    // Guardar en el storage
+    const pruebasStr = this.selectedMultimedia.length > 0 ? 'multimedia_adjunta' : undefined;
+    const audioStr = this.audioBlob ? 'audio_adjunto' : undefined;
+
+    this.denunciaStorage.setDescripcionPruebas(
+      this.descripcion,
+      pruebasStr,
+      audioStr
+    );
+
+    this.router.navigate(['/ubicacion']);
+  }
 
   // Limpieza de recursos cuando el componente se destruye
   ngOnDestroy() {
