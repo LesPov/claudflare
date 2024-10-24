@@ -22,6 +22,7 @@
 .input-container {
   position: relative;
   margin: 5px;
+  width: 70%;
 }
 
 .consultas_anonimas {
