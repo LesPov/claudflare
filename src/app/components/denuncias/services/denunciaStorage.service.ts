@@ -21,9 +21,10 @@ export class DenunciaStorageService {
   // Método para almacenar la descripción, pruebas, etc.
   setDescripcionPruebas(descripcion: string, pruebas?: string, audio?: string) {
     this.denuncia.descripcion = descripcion;
-    if (pruebas) this.denuncia.pruebas = pruebas;
-    if (audio) this.denuncia.audio = audio;
+    if (pruebas) this.denuncia.pruebas = pruebas; // Puede ser una lista de rutas separadas por comas
+    if (audio) this.denuncia.audio = audio; // Ruta del archivo de audio
   }
+  
 
   // Método para almacenar la dirección
   setDireccion(direccion: string) {

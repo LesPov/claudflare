@@ -171,31 +171,44 @@ export class EvidenciaComponent implements OnInit {
   }
 
   // Método para continuar al siguiente paso (solo si la descripción no está vacía)
-
   handleContinue(): void {
     if (this.descripcion.trim().length === 0) {
       this.toastr.error('Debes ingresar una descripción para continuar');
       return;
     }
-
+  
     if (this.wordCount < this.minimumWords) {
       this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
       return;
     }
-
+  
+    const multimediaPaths: string[] = [];
+  
+    // Guardar los archivos multimedia seleccionados
+    this.selectedMultimedia.forEach(file => {
+      const uniqueFileName = `${Date.now()}-${file.name}`; // Genera un nombre único usando la marca de tiempo
+      const filePath = `uploads/multimedia/${uniqueFileName}`; // Ruta donde se almacenará el archivo
+      multimediaPaths.push(filePath);
+      // Aquí debes incluir la lógica para subir el archivo al servidor
+      // y moverlo a `uploads/multimedia/` o la ruta que desees
+    });
+  
+    let audioPath: string | undefined;
+    if (this.audioBlob) {
+      const uniqueAudioName = `${Date.now()}-audio.wav`; // Nombre único para el archivo de audio
+      audioPath = `uploads/audio/${uniqueAudioName}`;
+      // Aquí deberías subir el blob de audio al servidor, guardándolo en `uploads/audio/`
+    }
+  
     // Guardar en el storage
-    const pruebasStr = this.selectedMultimedia.length > 0 ? 'multimedia_adjunta' : undefined;
-    const audioStr = this.audioBlob ? 'audio_adjunto' : undefined;
-
     this.denunciaStorage.setDescripcionPruebas(
       this.descripcion,
-      pruebasStr,
-      audioStr
+      multimediaPaths.length > 0 ? multimediaPaths.join(',') : undefined,
+      audioPath
     );
-
+  
     this.router.navigate(['/ubicacion']);
   }
-
   // Limpieza de recursos cuando el componente se destruye
   ngOnDestroy() {
     this.clearAudioRecording();
