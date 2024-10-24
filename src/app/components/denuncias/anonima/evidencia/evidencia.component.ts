@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BotInfoService } from '../../../home/bot/botInfoService';
 import { DenunciasService } from '../../services/denuncias.service';
+import { DenunciaStorageService } from '../../services/denunciaStorage.service';
 
 @Component({
   selector: 'app-evidencia',
@@ -37,7 +38,7 @@ export class EvidenciaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private denunciasService: DenunciasService,
+    private denunciaStorage: DenunciaStorageService,
     private toastr: ToastrService
   ) { }
 
@@ -161,19 +162,30 @@ export class EvidenciaComponent implements OnInit {
   }
 
   // Método para continuar al siguiente paso (solo si la descripción no está vacía)
-  handleContinue(): void {
-    if (this.descripcion.trim().length === 0) {
-      this.toastr.error('Debes ingresar una descripción para continuar');
-      return;
-    }
-    
-    if (this.wordCount < this.minimumWords) {
-      this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
-      return;
-    }
-    
-    this.router.navigate(['/ubicacion']);
+ 
+handleContinue(): void {
+  if (this.descripcion.trim().length === 0) {
+    this.toastr.error('Debes ingresar una descripción para continuar');
+    return;
   }
+  
+  if (this.wordCount < this.minimumWords) {
+    this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
+    return;
+  }
+
+  // Guardar en el storage
+  const pruebasStr = this.selectedMultimedia.length > 0 ? 'multimedia_adjunta' : undefined;
+  const audioStr = this.audioBlob ? 'audio_adjunto' : undefined;
+  
+  this.denunciaStorage.setDescripcionPruebas(
+    this.descripcion,
+    pruebasStr,
+    audioStr
+  );
+  
+  this.router.navigate(['/ubicacion']);
+}
 
   // Limpieza de recursos cuando el componente se destruye
   ngOnDestroy() {

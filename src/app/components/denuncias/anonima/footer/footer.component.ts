@@ -1,4 +1,3 @@
-// footer.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,8 +13,8 @@ export class FooterComponent {
   @Input() currentStep: number | null = null;
   @Input() totalSteps: number | null = null;
   @Input() denunciaSeleccionada = false;
-  @Input() showDots = false;  // Nueva propiedad para mostrar/ocultar los dots
-  @Input() showStepCounter: boolean = false; // Nuevo input para controlar visibilidad
+  @Input() showDots = false;
+  @Input() showStepCounter: boolean = false;
 
   @Output() continuar = new EventEmitter<void>();
 

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { DenunciaStorageService } from '../../services/denunciaStorage.service';
 
 @Component({
   selector: 'app-tipos',
@@ -39,7 +40,9 @@ export class TiposComponent implements OnInit {
     private denunciasService: DenunciasService,
     private router: Router,
     private toastr: ToastrService,
-    private botInfoService: BotInfoService 
+    private botInfoService: BotInfoService ,
+    private denunciaStorage: DenunciaStorageService
+
   ) {}
 
   ngOnInit(): void {
@@ -111,12 +114,12 @@ export class TiposComponent implements OnInit {
       return;
     }
     
-    // Obtener el nombre del tipo de denuncia seleccionado
     const selectedDenuncia = this.tiposDenunciasAnonimas[this.selectedDenunciaIndex];
     if (selectedDenuncia) {
-      // Navegar a la ruta de subtipos y pasar el nombre como parámetro
+      // Guardar en el storage
+      this.denunciaStorage.setTipoDenuncia(selectedDenuncia.nombre);
+      // Navegar
       this.router.navigate(['/subtipos', { nombreTipoDenuncia: selectedDenuncia.nombre }]);
-    
     }
   }
   

@@ -1,4 +1,3 @@
-// src/app/services/denuncias.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -6,31 +5,35 @@ import { environment } from '../../../../environments/environment';
 import { TipoDenunciaInterface } from '../interface/tipoDenunciaInterface';
 import { DenunciaAnonimaInterface } from '../interface/denunciaAnonimaInterface';
 
-
 @Injectable({
-  providedIn: 'root' // Este servicio estará disponible en toda la aplicación
+  providedIn: 'root'
 })
 export class DenunciasService {
-  private myAppUrl: string;
-  private myApiUrl: string;
+  private baseUrl: string = `${environment.endpoint}api/denuncias/`;
 
-  constructor(private http: HttpClient) {
-    this.myAppUrl = environment.endpoint;
-    this.myApiUrl = 'api/denuncias/';  // Ruta base para denuncias
-  }
+  constructor(private http: HttpClient) {}
 
-  // OBTENER LISTA DE TIPOS DE DENUNCIAS ANONIMAS O AMBAS
+  // Obtener lista de tipos de denuncias anónimas o ambas
   getTiposDenunciaAnonimas(): Observable<TipoDenunciaInterface[]> {
-    return this.http.get<TipoDenunciaInterface[]>(`${this.myAppUrl}${this.myApiUrl}tipos/anonimas`);
+    return this.http.get<TipoDenunciaInterface[]>(`${this.baseUrl}tipos/anonimas`);
   }
 
-  // NUEVO MÉTODO PARA OBTENER SUBTIPOS DE DENUNCIA
+  // Obtener subtipos según el tipo de denuncia
   getSubtiposDenuncia(nombreTipoDenuncia: string): Observable<any> {
-    return this.http.get<any>(`${this.myAppUrl}${this.myApiUrl}tipos/subtiposdenuncia/${nombreTipoDenuncia}`);
+    return this.http.get<any>(`${this.baseUrl}tipos/subtiposdenuncia/${nombreTipoDenuncia}`);
   }
+
+ 
   // Crear una denuncia anónima
-  crearDenunciaAnonima(denuncia: DenunciaAnonimaInterface): Observable<DenunciaAnonimaInterface> {
+  crearDenunciaAnonima(
+    denuncia: DenunciaAnonimaInterface
+  ): Observable<{ message: string; nuevaDenuncia: DenunciaAnonimaInterface }> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<DenunciaAnonimaInterface>(`${this.myAppUrl}${this.myApiUrl}`, denuncia, { headers });
+    // Ajustamos la URL para que incluya "denuncias/" al final
+    return this.http.post<{ message: string; nuevaDenuncia: DenunciaAnonimaInterface }>(
+      `${this.baseUrl}denuncias/`,
+      denuncia,
+      { headers }
+    );
   }
 }

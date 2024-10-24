@@ -8,6 +8,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { SubtipoDenunciaInterface } from '../../interface/subtipoDenunciaInterface';
 import { BotInfoService } from '../../../home/bot/botInfoService';
 import { HeaderComponent } from '../header/header.component';
+import { DenunciaStorageService } from '../../services/denunciaStorage.service';
 
 @Component({
   selector: 'app-subtipos',
@@ -39,7 +40,8 @@ export class SubtiposComponent implements OnInit {
     private router: Router,
     private denunciasService: DenunciasService,
     private toastr: ToastrService,
-    private botInfoService: BotInfoService
+    private botInfoService: BotInfoService,
+    private denunciaStorage: DenunciaStorageService
   ) { }
   ngOnInit(): void {
     // Obtener el nombre del tipo de denuncia de los parámetros de la ruta
@@ -119,7 +121,9 @@ export class SubtiposComponent implements OnInit {
     // Obtener el nombre del tipo de denuncia seleccionado
     const selectedDenuncia = this.subtipos[this.selectedDenunciaIndex];
     if (selectedDenuncia) {
-      // Navegar a la ruta de evidencias
+      // Guardar en el storage
+      this.denunciaStorage.setSubtipoDenuncia(selectedDenuncia.nombre);
+      // Navegar      
       this.router.navigate(['/evidencia', { nombreSubTipoDenuncia: selectedDenuncia.nombre }]);
 
 

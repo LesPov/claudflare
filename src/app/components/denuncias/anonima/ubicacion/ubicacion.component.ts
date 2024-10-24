@@ -6,6 +6,7 @@ import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
 import * as L from 'leaflet';
 import { ToastrService } from 'ngx-toastr';
+import { DenunciaStorageService } from '../../services/denunciaStorage.service';
 
 @Component({
   selector: 'app-ubicacion',
@@ -25,8 +26,10 @@ export class UbicacionComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private denunciaStorage: DenunciaStorageService
+
+  ) { }
 
   ngOnInit() {
     this.requestUserLocation();
@@ -65,7 +68,7 @@ export class UbicacionComponent implements OnInit {
 
   private async handleMapClick(e: L.LeafletMouseEvent) {
     const { lat, lng } = e.latlng;
-    
+
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
@@ -89,7 +92,7 @@ export class UbicacionComponent implements OnInit {
 
       // Formatear la dirección completa
       this.direccionSeleccionada = `${road || 'Calle desconocida'} ${house_number || ''}, ${suburb || ''}, ${city || 'Ciudad desconocida'} ${postcode || ''}`;
-      
+
       this.toastr.success('Ubicación seleccionada correctamente');
     } catch (error) {
       this.toastr.error('Error al obtener la dirección');
@@ -98,14 +101,16 @@ export class UbicacionComponent implements OnInit {
       this.isLoading = false;
     }
   }
-
   handleContinue(): void {
     if (!this.selectedLocation) {
       this.toastr.error('Por favor, selecciona una ubicación en el mapa');
       return;
     }
-    this.router.navigate(['/']);
+    // Guardar en el storage
+    this.denunciaStorage.setDireccion(this.direccionSeleccionada);
+    this.router.navigate(['/resume']);
   }
+
 
   ngOnDestroy() {
     if (this.map) {
