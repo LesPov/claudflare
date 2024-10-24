@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import * as L from 'leaflet';
 import { ToastrService } from 'ngx-toastr';
 import { DenunciaStorageService } from '../../services/denunciaStorage.service';
+import { BotInfoService } from '../../../home/bot/botInfoService';
 
 @Component({
   selector: 'app-ubicacion',
@@ -24,17 +25,29 @@ export class UbicacionComponent implements OnInit {
   direccionSeleccionada: string = '';
   isLoading: boolean = false;
 
+   // Lista de mensajes de ayuda
+   private infoUbicacion: string[] = [
+    "",
+    "Bienvenido a la sección de selección de ubicación.",
+    "Tu dispositivo intentará detectar tu ubicación automáticamente. Si no es posible, selecciona un punto en el mapa.",
+    "Haz clic en el mapa para elegir el lugar donde ocurrió el incidente.",
+    "Una vez que hayas seleccionado una ubicación, podrás continuar con el siguiente paso."
+  ];
+
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private denunciaStorage: DenunciaStorageService
+    private denunciaStorage: DenunciaStorageService,
+    private botInfoService: BotInfoService
+
 
   ) { }
 
   ngOnInit() {
     this.requestUserLocation();
+   // Asignar la nueva lista de mensajes al bot
+   this.botInfoService.setInfoList(this.infoUbicacion);
   }
-
   private requestUserLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(

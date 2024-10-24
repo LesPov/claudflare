@@ -29,12 +29,14 @@ export class TiposComponent implements OnInit {
 
 
   private infoListAnonima: string[] = [
-    "Las denuncias anónimas permiten reportar situaciones sin revelar tu identidad.",
-    "Selecciona el tipo de denuncia que mejor se ajuste a la situación que quieres reportar.",
-    "Recuerda proporcionar todos los detalles posibles para que la denuncia sea efectiva.",
-    "Aunque la denuncia es anónima, puedes hacer seguimiento usando un código que se te proporcionará.",
-    "Si necesitas más información sobre algún tipo de denuncia, toca el ícono de información."
+    "",
+    "Estás en la sección de denuncias anónimas. Aquí puedes reportar sin revelar tu identidad.",
+    "Estos son los tipos de denuncias que tenemos disponibles. Selecciona una para obtener más detalles.",
+    "Haz clic en la imagen de cualquier denuncia para consultar más información sobre ella.",
+    "Si deseas hacer seguimiento de tu denuncia, recibirás un código al finalizar.",
+    "Para obtener acceso a funciones avanzadas como usar la inteligencia artificial, regístrate y comienza sesión."
   ];
+
 
   constructor(
     private denunciasService: DenunciasService,

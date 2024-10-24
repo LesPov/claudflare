@@ -15,7 +15,7 @@ import { DenunciaStorageService } from '../../services/denunciaStorage.service';
   imports: [FormsModule, CommonModule, HeaderComponent, FooterComponent],
   templateUrl: './evidencia.component.html',
   styleUrls: ['./evidencia.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush 
+  changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 export class EvidenciaComponent implements OnInit {
@@ -27,22 +27,33 @@ export class EvidenciaComponent implements OnInit {
   minimumWords: number = 10;
   wordCount: number = 0;
   showError: boolean = false;
-  // Variables para la grabación de audio
   isRecording = false;
   mediaRecorder: MediaRecorder | null = null;
   audioChunks: Blob[] = [];
   audioUrl: string | null = null;
-  maxRecordingTime = 60000; // 1 minuto en milisegundos
+  maxRecordingTime = 60000;
   recordingTimeout: any;
   audioBlob: Blob | null = null;
   currentStream: MediaStream | null = null;
+  // Nueva lista de mensajes
+  private infoEvidenciaList: string[] = [
+    "",
+    "Bienvenido a la sección de evidencia. Aquí podrás subir archivos multimedia relacionados con tu denuncia.",
+    "Selecciona una imagen, video o audio que respalde tu denuncia.",
+    "Puedes agregar una descripción detallada de la evidencia que estás subiendo.",
+    "Si lo prefieres, puedes grabar un mensaje de audio como parte de tu evidencia.",
+    "Recuerda que toda la evidencia que proporciones ayudará a mejorar la atención a tu denuncia.",
+    "Gracias por subir tu evidencia. Puedes continuar con el siguiente paso cuando estés listo."
+  ];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private denunciaStorage: DenunciaStorageService,
     private toastr: ToastrService,
-    private cdr: ChangeDetectorRef  // Añade esto
+    private cdr: ChangeDetectorRef,
+    private botInfoService: BotInfoService
+
 
   ) { }
 
@@ -50,6 +61,8 @@ export class EvidenciaComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.subtipoDenuncia = params['nombreSubTipoDenuncia'];
     });
+    // Asignar la nueva lista de mensajes al bot
+    this.botInfoService.setInfoList(this.infoEvidenciaList);
   }
   onDescripcionChange(event: Event) {
     const input = event.target as HTMLTextAreaElement;
@@ -93,7 +106,7 @@ export class EvidenciaComponent implements OnInit {
 
 
   // Iniciar la grabación
- 
+
   private startRecording(stream: MediaStream) {
     this.audioChunks = [];
     this.mediaRecorder = new MediaRecorder(stream);
@@ -154,15 +167,15 @@ export class EvidenciaComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       this.selectedMultimedia = Array.from(input.files);
-  
+
       // Usar setTimeout para retrasar el cambio de URL
       setTimeout(() => {
         this.cdr.detectChanges();
       });
     }
   }
-  
-  
+
+
   isImage(file: File): boolean {
     return file.type.startsWith('image/');
   }
@@ -181,14 +194,14 @@ export class EvidenciaComponent implements OnInit {
       this.toastr.error('Debes ingresar una descripción para continuar');
       return;
     }
-  
+
     if (this.wordCount < this.minimumWords) {
       this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
       return;
     }
-  
+
     const multimediaPaths: string[] = [];
-  
+
     // Guardar los archivos multimedia seleccionados
     this.selectedMultimedia.forEach(file => {
       const uniqueFileName = `${Date.now()}-${file.name}`; // Genera un nombre único usando la marca de tiempo
@@ -197,21 +210,21 @@ export class EvidenciaComponent implements OnInit {
       // Aquí debes incluir la lógica para subir el archivo al servidor
       // y moverlo a `uploads/multimedia/` o la ruta que desees
     });
-  
+
     let audioPath: string | undefined;
     if (this.audioBlob) {
       const uniqueAudioName = `${Date.now()}-audio.wav`; // Nombre único para el archivo de audio
       audioPath = `uploads/audio/${uniqueAudioName}`;
       // Aquí deberías subir el blob de audio al servidor, guardándolo en `uploads/audio/`
     }
-  
+
     // Guardar en el storage
     this.denunciaStorage.setDescripcionPruebas(
       this.descripcion,
       multimediaPaths.length > 0 ? multimediaPaths.join(',') : undefined,
       audioPath
     );
-  
+
     this.router.navigate(['/ubicacion']);
   }
 

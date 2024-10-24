@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DenunciaAnonimaInterface } from '../../interface/denunciaAnonimaInterface';
 import { DenunciaStorageService } from '../../services/denunciaStorage.service';
+import { BotInfoService } from '../../../home/bot/botInfoService';
 
 @Component({
   selector: 'app-resumen',
@@ -22,8 +23,17 @@ export class ResumenComponent implements OnInit {
   claveUnica: string | null = null; 
   showModal: boolean = false; 
 
+  // Mensajes de ayuda para el resumen
+  private inforesumen: string[] = [
+    "",
+    "Estás en la sección de resumen de tu denuncia.",
+    "Revisa cuidadosamente la información antes de proceder.",
+    "Si es necesario, puedes volver atrás para corregir la información.",
+    "Guarda la clave de radicado una vez que envíes la denuncia, será necesaria para futuras consultas."
+  ];
   constructor(
     private denunciaStorageService: DenunciaStorageService,
+    private botInfoService: BotInfoService,
     private denunciasService: DenunciasService,
     private router: Router
   ) { }
@@ -41,6 +51,7 @@ export class ResumenComponent implements OnInit {
       // Redirigir a /tipos si faltan datos en el resumen
       this.router.navigate(['/tipos']);
     }
+    this.botInfoService.setInfoList(this.inforesumen);
   }
 
   // Verificar si el botón "Continuar" debe estar habilitado
