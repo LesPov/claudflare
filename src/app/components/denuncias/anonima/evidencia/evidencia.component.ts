@@ -15,12 +15,21 @@ import { DenunciasService } from '../../services/denuncias.service';
   templateUrl: './evidencia.component.html',
   styleUrls: ['./evidencia.component.css']
 })
-
 export class EvidenciaComponent implements OnInit {
   subtipoDenuncia: string | null = null;
-  currentStep = 1;  // El paso actual
-  totalSteps = 3;   // Número total de pasos
-  selectedMultimedia: File[] = []; // Archivos multimedia seleccionados
+  currentStep = 1;
+  totalSteps = 3;
+  selectedMultimedia: File[] = [];
+
+  // Variables para la grabación de audio
+  isRecording = false;
+  mediaRecorder: MediaRecorder | null = null;
+  audioChunks: Blob[] = [];
+  audioUrl: string | null = null;
+  maxRecordingTime = 60000; // 1 minuto en milisegundos
+  recordingTimeout: any;
+  audioBlob: Blob | null = null;
+  currentStream: MediaStream | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,36 +44,118 @@ export class EvidenciaComponent implements OnInit {
     });
   }
 
-  // Método para manejar el clic en el ícono de subida de archivos
-  triggerFileUpload(): void {
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    fileInput.click();  // Simula el clic para abrir el selector de archivos
-  }
-
-  // Método para manejar la selección de archivos multimedia
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) {
-      this.selectedMultimedia = Array.from(input.files); // Convertir los archivos a un array
+  // Método para iniciar/detener la grabación
+  async toggleRecording() {
+    if (!this.isRecording) {
+      if (this.audioUrl) {
+        // Si ya hay un audio grabado, limpiamos todo para empezar una nueva grabación
+        this.clearAudioRecording();
+      }
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        this.currentStream = stream;
+        this.startRecording(stream);
+      } catch (error) {
+        this.toastr.error('No se pudo acceder al micrófono');
+        console.error('Error accessing microphone:', error);
+      }
+    } else {
+      await this.stopRecording();
     }
   }
 
-  // Método para verificar si el archivo es una imagen
+  // Limpiar la grabación actual
+  private clearAudioRecording() {
+    if (this.audioUrl) {
+      URL.revokeObjectURL(this.audioUrl);
+    }
+    this.audioUrl = null;
+    this.audioBlob = null;
+    this.audioChunks = [];
+  }
+
+  // Iniciar la grabación
+  private startRecording(stream: MediaStream) {
+    this.audioChunks = [];
+    this.mediaRecorder = new MediaRecorder(stream);
+
+    this.mediaRecorder.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        this.audioChunks.push(event.data);
+      }
+    };
+
+    this.mediaRecorder.start();
+    this.isRecording = true;
+
+    // Configurar el timeout para detener automáticamente después de 1 minuto
+    this.recordingTimeout = setTimeout(() => {
+      if (this.isRecording) {
+        this.stopRecording();
+        this.toastr.info('La grabación ha alcanzado el límite de 1 minuto');
+      }
+    }, this.maxRecordingTime);
+  }
+
+  // Detener la grabación
+  private async stopRecording() {
+    if (this.mediaRecorder && this.isRecording) {
+      this.isRecording = false;
+      clearTimeout(this.recordingTimeout);
+
+      return new Promise<void>((resolve) => {
+        this.mediaRecorder!.onstop = () => {
+          this.audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+          this.audioUrl = URL.createObjectURL(this.audioBlob);
+          
+          // Detener y limpiar el stream
+          if (this.currentStream) {
+            this.currentStream.getTracks().forEach(track => track.stop());
+            this.currentStream = null;
+          }
+          resolve();
+        };
+
+        this.mediaRecorder!.stop();
+      });
+    }
+    return Promise.resolve();
+  }
+
+  // Resto de los métodos existentes...
+  triggerFileUpload(): void {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedMultimedia = Array.from(input.files);
+    }
+  }
+
   isImage(file: File): boolean {
     return file.type.startsWith('image/');
   }
 
-  // Método para verificar si el archivo es un video
   isVideo(file: File): boolean {
     return file.type.startsWith('video/');
   }
 
-  // Obtener la URL para vista previa
   getFileUrl(file: File): string {
     return URL.createObjectURL(file);
   }
 
   handleContinue(): void {
     this.router.navigate(['/ubicacion']);
+  }
+
+  // Limpieza de recursos cuando el componente se destruye
+  ngOnDestroy() {
+    this.clearAudioRecording();
+    if (this.currentStream) {
+      this.currentStream.getTracks().forEach(track => track.stop());
+    }
   }
 }
