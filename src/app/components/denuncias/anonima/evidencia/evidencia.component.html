@@ -20,12 +20,21 @@
 
         <!-- Vista previa de archivos -->
         <div *ngIf="selectedMultimedia.length > 0" class="preview">
-            <p>Archivo seleccionados</p>
+            <p>Archivo seleccionado</p>
             <div *ngFor="let file of selectedMultimedia" class="file-preview">
                 <img *ngIf="isImage(file)" [src]="getFileUrl(file)" alt="Imagen seleccionada">
                 <video *ngIf="isVideo(file)" [src]="getFileUrl(file)" controls></video>
             </div>
         </div>
+    </div>
+
+    <div class="multimedia_audio">
+        <p>Puedes agregar un audio de 1 minuto</p>
+        <div class="multimedia_content_audio">
+            <p>Oprime el icono para agregar evidencia</p>
+            <i class='bx bx-microphone'></i>       
+         </div>
+       
     </div>
 </div>
 
