@@ -32,10 +32,10 @@
         <div class="field">
             <label class="label">Evidencias adjuntas:</label>
             <div *ngIf="datosResumen.pruebas" class="info">
-                Archivos multimedia 
+                Archivos multimedia
             </div>
             <div *ngIf="datosResumen.audio" class="info">
-                Audio 
+                Audio
             </div>
             <div *ngIf="!datosResumen.pruebas && !datosResumen.audio" class="info">
                 No se adjuntaron evidencias
@@ -44,21 +44,20 @@
     </div>
 </div>
 
-<app-footer 
-    [currentStep]="currentStep" 
-    [totalSteps]="totalSteps" 
-    [showStepCounter]="true"
-    [denunciaSeleccionada]="isContinueButtonEnabled()" 
-    (continuar)="handleContinue()">
+<app-footer [currentStep]="currentStep" [totalSteps]="totalSteps" [showStepCounter]="true"
+    [denunciaSeleccionada]="isContinueButtonEnabled()" (continuar)="handleContinue()">
 </app-footer>
 
 <!-- Modal de éxito -->
 <div *ngIf="showModal" class="modal">
     <div class="modal-content">
-        <h2>Denuncia enviada con éxito</h2>
+        <h1>Denuncia enviada con éxito</h1>
         <p>Tu denuncia ha sido registrada con la clave de radicado:</p>
-        <div class="clave-unica">{{ claveUnica }}</div>
+        <div class="clave-unica">
+            {{ claveUnica }}
+        </div>
         <p>Por favor, guarda esta clave para futuras consultas.</p>
-        <button (click)="closeModal()">Cerrar y continuar</button>
+        <button class="learn-more" (click)="closeModal()">Continuar
+        </button>
     </div>
 </div>

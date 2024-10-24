@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
@@ -19,17 +19,28 @@ export class ResumenComponent implements OnInit {
   currentStep = 3;
   totalSteps = 3;
   datosResumen: Partial<DenunciaAnonimaInterface> = {};
-  claveUnica: string | null = null; // Nueva variable para la clave única
-  showModal: boolean = false; // Controlar la visibilidad del modal
+  claveUnica: string | null = null; 
+  showModal: boolean = false; 
 
   constructor(
     private denunciaStorageService: DenunciaStorageService,
     private denunciasService: DenunciasService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.datosResumen = this.denunciaStorageService.getDenuncia();
+
+    // Validar si faltan datos y redirigir a /tipos si es necesario
+    if (
+      !this.datosResumen.nombreTipo ||
+      !this.datosResumen.nombreSubtipo ||
+      !this.datosResumen.descripcion ||
+      !this.datosResumen.direccion
+    ) {
+      // Redirigir a /tipos si faltan datos en el resumen
+      this.router.navigate(['/tipos']);
+    }
   }
 
   // Verificar si el botón "Continuar" debe estar habilitado
