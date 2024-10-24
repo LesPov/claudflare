@@ -1,22 +1,15 @@
-.body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 
-  height: auto;
-  width: 100%;
-}
 .container_content {
-  width: 90%;
-  position: fixed;
-  bottom: 20px;
-  border-radius: 15px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
+  width: 100%;
+    position: absolute;
+    bottom: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 50px;
 }
 .consultas_anonimas h1{
   margin: 15px;
