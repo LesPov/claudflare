@@ -1,48 +1,106 @@
+/* Estilos generales */
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    flex-direction: column;
-    top: 180px;
     position: absolute;
-    z-index: 1;
-}
-
-.relato {
+    top: 180px;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .relato {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-.relato p {
+  }
+  
+  .relato p {
     margin: 15px;
     position: relative;
     left: -105px;
-}
-
-.descripcion {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  }
+  
+  .descripcion {
+    font-family: 'Segoe UI', sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: #000000;
     border-radius: 10px;
     border: 1px solid #ccc;
-    outline: none;
     padding: 10px;
     width: 90%;
-    height: 140px; /* Altura del rectángulo */
-    resize: none;  /* Evita que el usuario cambie el tamaño manualmente */
-    overflow-y: auto;  /* Para mostrar scroll si el contenido es mayor al área visible */
-    transition: .4s;
-    word-wrap: break-word; /* Asegura que el texto se ajuste dentro del cuadro */
-}
+    height: 140px;
+    resize: none;
+    overflow-y: auto;
+    transition: 0.4s;
+  }
+  
+  .multimedia {
+    width: 90%;
+    background: #e4e4e4;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 100px;
 
-.descripcion:hover {
-    box-shadow: 0 0 0 .15vw rgba(135, 207, 235, 0.186);
-}
+  }
 
-.descripcion:focus {
-    box-shadow: 0 0 0 .15vw skyblue;
-}
+  .multimedia_content{
+    background: #ffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    justify-content: space-around;
+  }
+  .multimedia_content p{
+    margin-bottom: 0px !important;
+    font-size: 12px;
+    font-weight: 400;
+
+  }
+  
+  .multimedia p {
+    margin-bottom: 10px;
+    text-align: start;
+  }
+  
+  /* Estilos para el ícono */
+  .bxs-image-add {
+    font-size: 30px;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  .preview {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .file-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  img, video {
+    width: 80%;   /* Tamaño responsivo */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para hacer que el diseño sea responsivo */
+  @media (max-width: 768px) {
+    img, video {
+      width: 100%;
+      height: auto; /* Para que se ajuste dinámicamente en pantallas pequeñas */
+    }
+  }
+  

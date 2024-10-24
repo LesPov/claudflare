@@ -15,17 +15,18 @@ import { DenunciasService } from '../../services/denuncias.service';
   templateUrl: './evidencia.component.html',
   styleUrls: ['./evidencia.component.css']
 })
+
 export class EvidenciaComponent implements OnInit {
   subtipoDenuncia: string | null = null;
   currentStep = 1;  // El paso actual
-  totalSteps = 3;   // Definir el número total de pasos
+  totalSteps = 3;   // Número total de pasos
+  selectedMultimedia: File[] = []; // Archivos multimedia seleccionados
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private denunciasService: DenunciasService,
-    private toastr: ToastrService,
-    private botInfoService: BotInfoService
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -34,9 +35,36 @@ export class EvidenciaComponent implements OnInit {
     });
   }
 
+  // Método para manejar el clic en el ícono de subida de archivos
+  triggerFileUpload(): void {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click();  // Simula el clic para abrir el selector de archivos
+  }
+
+  // Método para manejar la selección de archivos multimedia
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedMultimedia = Array.from(input.files); // Convertir los archivos a un array
+    }
+  }
+
+  // Método para verificar si el archivo es una imagen
+  isImage(file: File): boolean {
+    return file.type.startsWith('image/');
+  }
+
+  // Método para verificar si el archivo es un video
+  isVideo(file: File): boolean {
+    return file.type.startsWith('video/');
+  }
+
+  // Obtener la URL para vista previa
+  getFileUrl(file: File): string {
+    return URL.createObjectURL(file);
+  }
+
   handleContinue(): void {
-   
-    // Navegar al paso 2: Ubicación
     this.router.navigate(['/ubicacion']);
   }
 }

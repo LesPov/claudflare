@@ -1,21 +1,34 @@
-<app-header 
-[title]="'Denuncias Anónimas'"
-   [tipoDenuncia]="subtipoDenuncia"  
-  [showSpeakButton]="true" 
-  [componentName]="'evidencia'">
+<app-header [title]="'Denuncias Anónimas'" [tipoDenuncia]="subtipoDenuncia" [showSpeakButton]="true"
+    [componentName]="'evidencia'">
 </app-header>
 
 <div class="container">
     <div class="relato">
-      <p>Relato de lo que pasó:</p>
-      <textarea class="descripcion" placeholder="Agrega el detalle de como ocurrieron los hechos"></textarea>
+        <p>Relato de lo que pasó:</p>
+        <textarea class="descripcion" placeholder="Agrega el detalle de cómo ocurrieron los hechos"></textarea>
     </div>
-  </div>
-  
-<app-footer 
-  [currentStep]="currentStep"
-  [totalSteps]="totalSteps"
-   [showStepCounter]="true"
-  [denunciaSeleccionada]="true" 
-  (continuar)="handleContinue()">
+    <!-- Sección para subir contenido multimedia -->
+    <div class="multimedia">
+        <p>Si no deseas escribir, puedes agregar un video o una imagen:</p>
+        <div class="multimedia_content">
+            <p>Oprime el icono para agregar evidencia</p>
+            <i class='bx bxs-image-add bx-tada' (click)="triggerFileUpload()"></i>
+        </div>
+        <!-- Input de archivo oculto -->
+        <input type="file" id="fileInput" accept="image/*,video/*" (change)="onFileSelected($event)"
+            style="display: none;" multiple>
+
+        <!-- Vista previa de archivos -->
+        <div *ngIf="selectedMultimedia.length > 0" class="preview">
+            <p>Archivos seleccionados:</p>
+            <div *ngFor="let file of selectedMultimedia" class="file-preview">
+                <img *ngIf="isImage(file)" [src]="getFileUrl(file)" alt="Imagen seleccionada">
+                <video *ngIf="isVideo(file)" [src]="getFileUrl(file)" controls></video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer [currentStep]="currentStep" [totalSteps]="totalSteps" [showStepCounter]="true" [denunciaSeleccionada]="true"
+    (continuar)="handleContinue()">
 </app-footer>
