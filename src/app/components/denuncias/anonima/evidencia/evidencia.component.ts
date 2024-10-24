@@ -65,17 +65,16 @@ export class EvidenciaComponent implements OnInit {
   // Método para iniciar/detener la grabación
   async toggleRecording() {
     if (!this.isRecording) {
-      if (this.audioUrl) {
-        // Si ya hay un audio grabado, limpiamos todo para empezar una nueva grabación
-        this.clearAudioRecording();
-      }
+      // Limpiar grabación anterior si existe
+      this.clearAudioRecording();
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         this.currentStream = stream;
         this.startRecording(stream);
       } catch (error) {
         this.toastr.error('No se pudo acceder al micrófono');
-        console.error('Error accessing microphone:', error);
+        console.error('Error al acceder al micrófono:', error);
       }
     } else {
       await this.stopRecording();
@@ -88,11 +87,13 @@ export class EvidenciaComponent implements OnInit {
       URL.revokeObjectURL(this.audioUrl);
     }
     this.audioUrl = null;
-    this.audioBlob = null;
     this.audioChunks = [];
+    this.cdr.detectChanges(); // Forzar actualización cuando limpiamos
   }
 
+
   // Iniciar la grabación
+ 
   private startRecording(stream: MediaStream) {
     this.audioChunks = [];
     this.mediaRecorder = new MediaRecorder(stream);
@@ -106,8 +107,11 @@ export class EvidenciaComponent implements OnInit {
     this.mediaRecorder.start();
     this.isRecording = true;
 
-    // Configurar el timeout para detener automáticamente después de 1 minuto
-    this.recordingTimeout = setTimeout(() => {
+    // Forzar actualización de la vista
+    this.cdr.detectChanges();
+
+    // Detener automáticamente la grabación después de 1 minuto
+    setTimeout(() => {
       if (this.isRecording) {
         this.stopRecording();
         this.toastr.info('La grabación ha alcanzado el límite de 1 minuto');
@@ -119,25 +123,26 @@ export class EvidenciaComponent implements OnInit {
   private async stopRecording() {
     if (this.mediaRecorder && this.isRecording) {
       this.isRecording = false;
-      clearTimeout(this.recordingTimeout);
 
       return new Promise<void>((resolve) => {
         this.mediaRecorder!.onstop = () => {
           this.audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
           this.audioUrl = URL.createObjectURL(this.audioBlob);
 
-          // Detener y limpiar el stream
+          // Limpiar el stream
           if (this.currentStream) {
             this.currentStream.getTracks().forEach(track => track.stop());
             this.currentStream = null;
           }
+
+          // Forzar actualización de la vista
+          this.cdr.detectChanges();
           resolve();
         };
 
         this.mediaRecorder!.stop();
       });
     }
-    return Promise.resolve();
   }
 
   // Resto de los métodos existentes...
@@ -209,6 +214,7 @@ export class EvidenciaComponent implements OnInit {
   
     this.router.navigate(['/ubicacion']);
   }
+
   // Limpieza de recursos cuando el componente se destruye
   ngOnDestroy() {
     this.clearAudioRecording();
