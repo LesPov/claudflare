@@ -20,7 +20,10 @@ export class EvidenciaComponent implements OnInit {
   currentStep = 1;
   totalSteps = 3;
   selectedMultimedia: File[] = [];
-
+  descripcion: string = '';
+  minimumWords: number = 10;
+  wordCount: number = 0;
+  showError: boolean = false;
   // Variables para la grabación de audio
   isRecording = false;
   mediaRecorder: MediaRecorder | null = null;
@@ -43,7 +46,17 @@ export class EvidenciaComponent implements OnInit {
       this.subtipoDenuncia = params['nombreSubTipoDenuncia'];
     });
   }
-
+  onDescripcionChange(event: Event) {
+    const input = event.target as HTMLTextAreaElement;
+    this.descripcion = input.value;
+    
+    // Count words by splitting on whitespace and filtering out empty strings
+    const words = this.descripcion.trim().split(/\s+/).filter(word => word.length > 0);
+    this.wordCount = words.length;
+    
+    // Show error if words are less than minimum and description is not empty
+    this.showError = this.descripcion.trim().length > 0 && this.wordCount < this.minimumWords;
+  }
   // Método para iniciar/detener la grabación
   async toggleRecording() {
     if (!this.isRecording) {
@@ -107,7 +120,7 @@ export class EvidenciaComponent implements OnInit {
         this.mediaRecorder!.onstop = () => {
           this.audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
           this.audioUrl = URL.createObjectURL(this.audioBlob);
-          
+
           // Detener y limpiar el stream
           if (this.currentStream) {
             this.currentStream.getTracks().forEach(track => track.stop());
@@ -147,7 +160,18 @@ export class EvidenciaComponent implements OnInit {
     return URL.createObjectURL(file);
   }
 
+  // Método para continuar al siguiente paso (solo si la descripción no está vacía)
   handleContinue(): void {
+    if (this.descripcion.trim().length === 0) {
+      this.toastr.error('Debes ingresar una descripción para continuar');
+      return;
+    }
+    
+    if (this.wordCount < this.minimumWords) {
+      this.toastr.error(`La descripción debe contener al menos ${this.minimumWords} palabras`);
+      return;
+    }
+    
     this.router.navigate(['/ubicacion']);
   }
 

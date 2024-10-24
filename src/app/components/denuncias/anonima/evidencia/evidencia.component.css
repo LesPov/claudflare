@@ -166,7 +166,19 @@ audio {
     height: 40px;
     border-radius: 8px;
 }
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    width: 85%;
+}
 
+.word-counter {
+    color: #666;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    text-align: right;
+}
 /* Media queries existentes */
 @media (max-width: 768px) {
     img, video {
