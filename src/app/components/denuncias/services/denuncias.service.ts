@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { TipoDenunciaInterface } from '../interface/tipoDenunciaInterface';
 import { DenunciaAnonimaInterface } from '../interface/denunciaAnonimaInterface';
+import { ConsultaDenunciaResponse } from '../interface/consultasDenunciasAnonimasInterface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DenunciasService {
   private baseUrl: string = `${environment.endpoint}api/denuncias/`;
+  private headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
 
@@ -36,4 +38,16 @@ export class DenunciasService {
       { headers }
     );
   }
+
+   // Nuevo servicio para consultar una denuncia anónima por clave única
+   consultarDenunciaAnonima(claveUnica: string): Observable<ConsultaDenunciaResponse> {
+    return this.http.get<ConsultaDenunciaResponse>(
+      `${this.baseUrl}denuncias/consultas_anonimas`,
+      {
+        headers: this.headers,
+        params: { claveUnica } // claveUnica se envía como parámetro de consulta
+      }
+    );
+  }
+  
 }

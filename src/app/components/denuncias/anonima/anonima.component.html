@@ -1,21 +1,38 @@
 <app-header [title]="'Denuncias Anónimas'" [componentName]="'anonima'">
 </app-header>
+
 <div class="consultas_anonimas">
   <h1>Consulta</h1>
   <div class="info_consultas">
+    <!-- Mostrar mensaje de error si existe -->
+    <div *ngIf="error" class="error-message">{{ error }}</div>
 
+    <!-- Mostrar información de la denuncia si está disponible -->
+    <div *ngIf="consultaResultado" class="resultado_consulta">
+      <p class="consulta-descripcion"><strong>Descripción:</strong> {{ consultaResultado.denuncia.descripcion }}</p>
+      <p class="consulta-direccion"><strong>Dirección:</strong> {{ consultaResultado.denuncia.direccion }}</p>
+      <p class="consulta-estado"><strong>Estado:</strong> {{ consultaResultado.denuncia.status }}</p>
+      <p class="consulta-tipo-denuncia"><strong>Tipo de Denuncia:</strong> {{
+        consultaResultado.denuncia.tipoDenuncia.nombre }}</p>
+      <p class="consulta-subtipo-denuncia"><strong>Subtipo de Denuncia:</strong> {{
+        consultaResultado.denuncia.subtipoDenuncia.nombre }}</p>
+      <p *ngIf="consultaResultado.denuncia.pruebas" class="consulta-pruebas">
+        <strong>Pruebas:</strong> {{ consultaResultado.denuncia.pruebas }}
+      </p>
+      <p *ngIf="consultaResultado.denuncia.audio" class="consulta-audio">
+        <strong>Audio:</strong> {{ consultaResultado.denuncia.audio }}
+      </p>
+    </div>
   </div>
+
   <div class="container_content">
     <div class="input-container">
-      <input placeholder="Ingresa clave de radicado" class="input-field" type="password">
+      <input placeholder="Ingresa clave de radicado" class="input-field" type="password" [(ngModel)]="claveUnica">
       <label for="input-field" class="input-label"></label>
       <span class="input-highlight"></span>
     </div>
-    <button class="learn-more" routerLink="/">Consultar
-    </button>
+    <button class="learn-more" (click)="consultarDenuncia()">Consultar</button>
     <button class="learn-more" (click)="goToCrear()">Crear</button>
-    <button class="sabermas">
-      saber mas
-    </button>
+    <button class="sabermas">Saber más</button>
   </div>
 </div>
