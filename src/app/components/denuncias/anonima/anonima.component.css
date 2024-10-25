@@ -10,7 +10,8 @@
 .consultas_anonimas h1 {
   margin: 15px;
 }
-.resultado_consulta p{
+
+.resultado_consulta p {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +20,8 @@
   margin-bottom: 25px;
   font-size: 18px;
 }
-.resultado_consulta strong{
+
+.resultado_consulta strong {
   padding: 15px;
   font-size: 20px;
   background: #323167;
@@ -29,13 +31,13 @@
   border-radius: 10px;
 
 }
+
 .info_consultas {
   height: 25vh;
-    width: 90%;
-    overflow: overlay;
-    border-radius: 10px;
-    margin-bottom: 50px;
-    padding: 5px;
+  width: 90%;
+  overflow: overlay;
+  border-radius: 10px;
+  padding: 5px;
 }
 
 /* Input container */
